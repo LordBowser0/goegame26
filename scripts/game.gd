@@ -6,10 +6,9 @@ var current_position: Node3D = null
 func _ready() -> void:
 	current_position = find_child("start_pos", false)
 	if current_position == null:
-		print("FUCK")
+		print("Error: No spawn position was found")
 	else:
 		print(current_position.position)
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

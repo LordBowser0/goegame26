@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://g0dexoviipkg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_21rw2"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_21rw2"]
+size = Vector2(60, 60)
+center_offset = Vector3(0, 1, 0)
+
+[node name="board" type="Node3D" unique_id=1859905255]
+
+[node name="ground" type="StaticBody3D" parent="." unique_id=1347899410]
+
+[node name="shape" type="CollisionShape3D" parent="ground" unique_id=620057953]
+shape = SubResource("BoxShape3D_21rw2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground" unique_id=1646443372]
+mesh = SubResource("PlaneMesh_21rw2")

@@ -20,20 +20,18 @@ shape = SubResource("BoxShape3D_21rw2")
 [node name="surface" type="MeshInstance3D" parent="ground" unique_id=1646443372]
 mesh = SubResource("PlaneMesh_21rw2")
 
-[node name="wooden board" type="Node" parent="ground" unique_id=464062048]
-
-[node name="boundary" type="MeshInstance3D" parent="ground/wooden board" unique_id=1410515529]
+[node name="boundary" type="MeshInstance3D" parent="ground" unique_id=1410515529]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 30, 0, 0)
 mesh = SubResource("CapsuleMesh_21rw2")
 
-[node name="boundary2" type="MeshInstance3D" parent="ground/wooden board" unique_id=1280120384]
+[node name="boundary2" type="MeshInstance3D" parent="ground" unique_id=1280120384]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -30, 0, 0)
 mesh = SubResource("CapsuleMesh_21rw2")
 
-[node name="boundary3" type="MeshInstance3D" parent="ground/wooden board" unique_id=353574757]
+[node name="boundary3" type="MeshInstance3D" parent="ground" unique_id=353574757]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, 30)
 mesh = SubResource("CapsuleMesh_21rw2")
 
-[node name="boundary4" type="MeshInstance3D" parent="ground/wooden board" unique_id=1896894899]
+[node name="boundary4" type="MeshInstance3D" parent="ground" unique_id=1896894899]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, -30)
 mesh = SubResource("CapsuleMesh_21rw2")

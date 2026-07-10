@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://crn6quqbeubca" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://g0dexoviipkg" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://bstm5dl6c57sr" path="res://scenes/board_position.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://byxrg43wjuit8" path="res://scenes/figure.tscn" id="4_lbhrr"]
 
 [node name="game" type="Node" unique_id=1177366543]
 script = ExtResource("1_lnu2h")
@@ -15,7 +16,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2
 shadow_enabled = true
 
 [node name="well" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.70267, 0, 7)
 neighbors = [NodePath("../market")]
 
 [node name="market" parent="." unique_id=1347024676 instance=ExtResource("2_yqjtg")]
@@ -25,3 +26,8 @@ neighbors = [NodePath("../start_pos"), NodePath("../well")]
 [node name="start_pos" parent="." unique_id=1397801874 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -14)
 neighbors = [NodePath("../market")]
+
+[node name="player" parent="." unique_id=519840613 instance=ExtResource("4_lbhrr")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2088368651]
+transform = Transform3D(0.9396927, 0.29619813, -0.17101005, 0, 0.49999997, 0.86602545, 0.34202015, -0.8137977, 0.46984628, -9.86484, 30.814976, 27.347763)

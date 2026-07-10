@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://g0dexoviipkg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_21rw2"]
-size = Vector3(60, 2, 60)
+size = Vector3(60, 1, 60)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_21rw2"]
 size = Vector2(60, 60)
-center_offset = Vector3(0, 1, 0)
+center_offset = Vector3(0, 0.5, 0)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_21rw2"]
+height = 61.0
 
 [node name="board" type="Node3D" unique_id=1859905255]
 
@@ -14,5 +17,23 @@ center_offset = Vector3(0, 1, 0)
 [node name="shape" type="CollisionShape3D" parent="ground" unique_id=620057953]
 shape = SubResource("BoxShape3D_21rw2")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ground" unique_id=1646443372]
+[node name="surface" type="MeshInstance3D" parent="ground" unique_id=1646443372]
 mesh = SubResource("PlaneMesh_21rw2")
+
+[node name="wooden board" type="Node" parent="ground" unique_id=464062048]
+
+[node name="boundary" type="MeshInstance3D" parent="ground/wooden board" unique_id=1410515529]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 30, 0, 0)
+mesh = SubResource("CapsuleMesh_21rw2")
+
+[node name="boundary2" type="MeshInstance3D" parent="ground/wooden board" unique_id=1280120384]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -30, 0, 0)
+mesh = SubResource("CapsuleMesh_21rw2")
+
+[node name="boundary3" type="MeshInstance3D" parent="ground/wooden board" unique_id=353574757]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, 30)
+mesh = SubResource("CapsuleMesh_21rw2")
+
+[node name="boundary4" type="MeshInstance3D" parent="ground/wooden board" unique_id=1896894899]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, -30)
+mesh = SubResource("CapsuleMesh_21rw2")

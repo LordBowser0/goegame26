@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 
 
 func walk_to(node: Node3D):
+	print("Walking")
 	player.position = node.position
 	current_position = node
 	make_arrows()
@@ -45,7 +46,7 @@ func make_arrows():
 	for pos in current_position.neighbors:
 		var instance = a_scene.instantiate()
 		add_child(instance)
-
+		instance.destination = pos
 		instance.global_position = current_position.global_position
 		instance.look_at(current_position.get_node(pos).global_position, Vector3.UP)
 		instance.rotate_y(deg_to_rad(180))

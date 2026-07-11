@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+signal event_chosen
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -64,6 +65,7 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			print("Option 1")
 			visible = false
+			event_chosen.emit()
 
 
 func _on_option_2_gui_input(event: InputEvent) -> void:
@@ -71,6 +73,7 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			print("Option 2")
 			visible = false
+			event_chosen.emit()
 
 
 func _on_option_3_gui_input(event: InputEvent) -> void:
@@ -78,6 +81,7 @@ func _on_option_3_gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			print("Option 3")
 			visible = false
+			event_chosen.emit()
 
 
 func _on_option_4_gui_input(event: InputEvent) -> void:
@@ -85,3 +89,4 @@ func _on_option_4_gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			print("Option 4")
 			visible = false
+			event_chosen.emit()

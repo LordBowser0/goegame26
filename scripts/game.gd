@@ -11,6 +11,13 @@ enum LocationEvents {
 	TAVERN
 }
 
+enum FigureEvents {
+	NONE,
+	WOLF,
+	FROG,
+	RAVEN
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	new_game()
@@ -41,23 +48,33 @@ func _process(delta: float) -> void:
 # first, the player walks to a node
 func walk_to(node: Node3D):
 	print_debug("Now walking to: ", node)
-	player.position = node.position
-	current_position = node
-	make_arrows()
-	# next, events trigger:
-	# first, events regarding other present figures
-	## todo
-	# if no figure is present, an event regarding the current space can happen
-	## todo
-	# lastly, all remaining figures move according to their pattern
-	## todo
-
-
-func make_arrows():
-	var a_scene = preload("res://scenes/movement_arrows.tscn")
+	
+	# remove all arrows
 	for arrow in arrows:
 		arrow.queue_free()
 	arrows.clear()
+	
+	player.position = node.position
+	current_position = node
+	# next, events trigger:
+	# first, events regarding other present figures
+	if false:
+		trigger_figure(FigureEvents.NONE)
+	# if no figure is present, an event regarding the current space can happen
+	else:
+		trigger_location(current_position.event)
+	# function ends while waiting for player choices
+
+
+# continue turn after choosing event
+func _on_event_event_chosen() -> void:
+	# all other figures move according to their pattern
+	## todo
+	# make arrows to allow the player to move
+	make_arrows()
+
+func make_arrows():
+	var a_scene = preload("res://scenes/movement_arrows.tscn")
 	
 	for pos in current_position.neighbors:
 		var instance = a_scene.instantiate()
@@ -67,3 +84,17 @@ func make_arrows():
 		instance.look_at(current_position.get_node(pos).global_position, Vector3.UP)
 		instance.rotate_y(deg_to_rad(180))
 		arrows.append(instance)
+
+
+func trigger_figure(event:FigureEvents):
+	_on_event_event_chosen()
+
+
+func trigger_location(event: LocationEvents):
+	match event:
+		LocationEvents.NONE:
+			_on_event_event_chosen()
+		LocationEvents.WINE:
+			$event.visible = true
+		LocationEvents.TAVERN:
+			$event.visible = true

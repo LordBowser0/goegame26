@@ -19,10 +19,12 @@ shadow_enabled = true
 
 [node name="well" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.70267, 0, 7)
+event = 2
 neighbors = [NodePath("../market")]
 
 [node name="market" parent="." unique_id=1347024676 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
+event = 1
 neighbors = [NodePath("../start_pos"), NodePath("../well")]
 
 [node name="start_pos" parent="." unique_id=1397801874 instance=ExtResource("2_yqjtg")]
@@ -33,4 +35,7 @@ neighbors = [NodePath("../market")]
 
 [node name="rotating_camera" parent="." unique_id=222205219 instance=ExtResource("5_iywne")]
 
-[node name="CanvasLayer" parent="." unique_id=1845776552 instance=ExtResource("6_p57ef")]
+[node name="event" parent="." unique_id=1845776552 instance=ExtResource("6_p57ef")]
+visible = false
+
+[connection signal="event_chosen" from="event" to="." method="_on_event_event_chosen"]

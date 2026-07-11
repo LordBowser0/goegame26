@@ -37,11 +37,20 @@ func _process(delta: float) -> void:
 	pass
 
 
+## CORE GAME LOOP
+# first, the player walks to a node
 func walk_to(node: Node3D):
 	print_debug("Now walking to: ", node)
 	player.position = node.position
 	current_position = node
 	make_arrows()
+	# next, events trigger:
+	# first, events regarding other present figures
+	## todo
+	# if no figure is present, an event regarding the current space can happen
+	## todo
+	# lastly, all remaining figures move according to their pattern
+	## todo
 
 
 func make_arrows():

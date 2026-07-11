@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bstm5dl6c57sr" path="res://scenes/board_position.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://byxrg43wjuit8" path="res://scenes/figure.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://ceftvhuepnr5x" path="res://scenes/rotating_camera.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://bdeylqh0a05xw" path="res://scenes/text.tscn" id="6_p57ef"]
 
 [node name="game" type="Node" unique_id=1177366543]
 script = ExtResource("1_lnu2h")
@@ -31,3 +32,5 @@ neighbors = [NodePath("../market")]
 [node name="player" parent="." unique_id=519840613 instance=ExtResource("4_lbhrr")]
 
 [node name="rotating_camera" parent="." unique_id=222205219 instance=ExtResource("5_iywne")]
+
+[node name="CanvasLayer" parent="." unique_id=1845776552 instance=ExtResource("6_p57ef")]

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ceftvhuepnr5x"]
+
+[ext_resource type="Script" uid="uid://bah61kwa8caqr" path="res://scripts/camera_yaw.gd" id="1_56mdi"]
+[ext_resource type="Script" uid="uid://pc83nlbwuvq5" path="res://scripts/camera_pitch.gd" id="2_jcmhj"]
+
+[node name="yaw" type="Node3D" unique_id=222205219]
+script = ExtResource("1_56mdi")
+
+[node name="pitch" type="Node3D" parent="." unique_id=1410016331]
+script = ExtResource("2_jcmhj")
+
+[node name="Camera3D" type="Camera3D" parent="pitch" unique_id=317664426]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 40)

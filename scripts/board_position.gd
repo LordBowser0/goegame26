@@ -5,7 +5,7 @@ extends Node3D
 # manually underneath the board and stored in a graph in the main game.
 ################################################################################
 
-@export var event: Script
+@export var event: Main.LocationEvents
 @export var neighbors: Array
 
 # Called when the node enters the scene tree for the first time.

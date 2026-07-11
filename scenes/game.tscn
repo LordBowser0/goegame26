@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://g0dexoviipkg" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://bstm5dl6c57sr" path="res://scenes/board_position.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://byxrg43wjuit8" path="res://scenes/figure.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://ceftvhuepnr5x" path="res://scenes/rotating_camera.tscn" id="5_iywne"]
 
 [node name="game" type="Node" unique_id=1177366543]
 script = ExtResource("1_lnu2h")
@@ -29,5 +30,4 @@ neighbors = [NodePath("../market")]
 
 [node name="player" parent="." unique_id=519840613 instance=ExtResource("4_lbhrr")]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=2088368651]
-transform = Transform3D(0.9396927, 0.29619813, -0.17101005, 0, 0.49999997, 0.86602545, 0.34202015, -0.8137977, 0.46984628, -9.86484, 30.814976, 27.347763)
+[node name="rotating_camera" parent="." unique_id=222205219 instance=ExtResource("5_iywne")]

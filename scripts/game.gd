@@ -1,8 +1,15 @@
 extends Node
+class_name Main
 
 var current_position: Node3D = null
 var player: Node3D = null
 var arrows: Array = []
+
+enum LocationEvents {
+	NONE,
+	WINE,
+	TAVERN
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,7 +38,7 @@ func _process(delta: float) -> void:
 
 
 func walk_to(node: Node3D):
-	print("Walking")
+	print_debug("Now walking to: ", node)
 	player.position = node.position
 	current_position = node
 	make_arrows()

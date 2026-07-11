@@ -18,12 +18,24 @@ enum FigureEvents {
 	RAVEN
 }
 
+enum FlagIndices {
+	FOUND_CLUB,
+	COUNT ## to initialize array size
+}
+
+
+var flags: Array[bool] = []
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	new_game()
 
 
 func new_game():
+	flags.resize(FlagIndices.COUNT)
+	flags.fill(false)
+	
 	current_position = find_child("start_pos", false)
 	if current_position == null:
 		print("Error: No spawn position was found")
@@ -97,4 +109,12 @@ func trigger_location(event: LocationEvents):
 		LocationEvents.WINE:
 			$event.visible = true
 		LocationEvents.TAVERN:
+			var event_text = FileAccess.open(
+			"res://assets/event_texts/event_tavern.txt", FileAccess.READ).get_as_text()
+			var split = event_text.split("$")
+			$event/textbox.text = split[0].strip_edges()
+			$"event/option 1".text = split[1].strip_edges()
+			$"event/option 2".text = split[2].strip_edges()
+			$"event/option 3".text = split[3].strip_edges()
+			$"event/option 4".text = split[4].strip_edges()
 			$event.visible = true

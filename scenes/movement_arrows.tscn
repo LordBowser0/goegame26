@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ds6bufqccambw"]
 
 [ext_resource type="Script" uid="uid://bq1ugarlbo4vn" path="res://scripts/movement_arrows.gd" id="1_tf4m0"]
+[ext_resource type="PackedScene" uid="uid://d0qb6m7quu8pk" path="res://assets/models/arrow.glb" id="2_54jdu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_21rw2"]
 albedo_color = Color(0.32206795, 0.16912875, 0.8531007, 1)
@@ -10,19 +11,23 @@ material = SubResource("StandardMaterial3D_21rw2")
 size = Vector3(2, 1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_afct5"]
-size = Vector3(2, 0.2, 1)
+size = Vector3(2.364685, 0.83388674, 1.9009552)
 
 [node name="movement_arrows" type="Node3D" unique_id=1686163472]
 script = ExtResource("1_tf4m0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1528200240]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.5, 1)
+visible = false
 mesh = SubResource("PrismMesh_21rw2")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1716501797]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=274516295]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015472412, 0.81694335, 2.1887283)
 shape = SubResource("BoxShape3D_afct5")
+
+[node name="arrow" parent="." unique_id=1424373838 instance=ExtResource("2_54jdu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6723166, 1.7363707)
 
 [connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]

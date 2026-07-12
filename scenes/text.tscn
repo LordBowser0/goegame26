@@ -1,55 +1,50 @@
 [gd_scene format=3 uid="uid://bdeylqh0a05xw"]
 
 [ext_resource type="Script" uid="uid://dxsdetvuwv0yo" path="res://scripts/textbox.gd" id="1_wwb76"]
-[ext_resource type="Texture2D" uid="uid://5pqwtj3v5bkr" path="res://assets/sprites/characters/red-riding-hood.png" id="2_t50sv"]
+[ext_resource type="FontFile" uid="uid://i0jrr5468gb5" path="res://assets/fonts/PlayfairDisplay-Regular.ttf" id="2_t50sv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21rw2"]
-content_margin_left = 10.0
-content_margin_top = 6.0
+content_margin_left = 20.0
+content_margin_top = 15.0
 content_margin_right = 10.0
 content_margin_bottom = 6.0
-bg_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+bg_color = Color(0.13333334, 0.12156863, 0.1254902, 1)
 border_width_left = 10
 border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
-border_color = Color(0.39688924, 0.3968893, 0.396889, 1)
+border_color = Color(0.4627451, 0.4117647, 0.39607844, 1)
 border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwb76"]
-bg_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+bg_color = Color(0.1326397, 0.12199562, 0.12636694, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.39607844, 0.39607844, 0.39607844, 1)
+border_color = Color(0.46262854, 0.41098076, 0.39749628, 1)
 border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1845776552]
 script = ExtResource("1_wwb76")
 
 [node name="textbox" type="RichTextLabel" parent="." unique_id=1741057129]
 custom_minimum_size = Vector2(800, 300)
-custom_maximum_size = Vector2(800, 300)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -194.0
-offset_right = 400.0
-offset_bottom = 106.0
+custom_maximum_size = Vector2(500, 300)
+anchors_preset = -1
+anchor_left = 0.465
+anchor_top = 0.447
+anchor_right = 0.782
+anchor_bottom = 0.562
+offset_left = -66.67999
+offset_top = -131.656
+offset_right = 68.13599
+offset_bottom = 93.824005
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/default_color = Color(0.7921569, 0.7490196, 0.7411765, 1)
+theme_override_fonts/normal_font = ExtResource("2_t50sv")
+theme_override_font_sizes/normal_font_size = 17
 theme_override_styles/normal = SubResource("StyleBoxFlat_21rw2")
 text = "A cold wind blows through the street.
 
@@ -58,14 +53,17 @@ You've just seen your brother Wilhelm, possessed by that witch. You need to resc
 You already got your own. Wilhelm has another. Five more to go."
 shortcut_keys_enabled = false
 horizontal_alignment = 3
+justification_flags = 161
 
 [node name="option 1" type="RichTextLabel" parent="." unique_id=2100764523]
 custom_minimum_size = Vector2(800, 35)
-custom_maximum_size = Vector2(800, 35)
-offset_left = 176.0
-offset_top = 440.0
-offset_right = 976.0
-offset_bottom = 475.0
+custom_maximum_size = Vector2(500, 35)
+offset_left = 469.72794
+offset_top = 464.02002
+offset_right = 969.7279
+offset_bottom = 499.02002
+theme_override_colors/default_color = Color(0.7915413, 0.74727124, 0.7400696, 1)
+theme_override_fonts/normal_font = ExtResource("2_t50sv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wwb76")
 text = "You better get searching."
 shortcut_keys_enabled = false
@@ -74,11 +72,13 @@ horizontal_alignment = 1
 [node name="option 2" type="RichTextLabel" parent="." unique_id=2120680292]
 visible = false
 custom_minimum_size = Vector2(800, 35)
-custom_maximum_size = Vector2(800, 35)
-offset_left = 176.0
-offset_top = 480.0
-offset_right = 976.0
-offset_bottom = 515.0
+custom_maximum_size = Vector2(500, 35)
+offset_left = 469.72794
+offset_top = 504.02002
+offset_right = 969.7279
+offset_bottom = 539.02
+theme_override_colors/default_color = Color(0.7921569, 0.7490196, 0.7411765, 1)
+theme_override_fonts/normal_font = ExtResource("2_t50sv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wwb76")
 text = "option 2"
 shortcut_keys_enabled = false
@@ -87,11 +87,13 @@ horizontal_alignment = 1
 [node name="option 3" type="RichTextLabel" parent="." unique_id=1696667761]
 visible = false
 custom_minimum_size = Vector2(800, 35)
-custom_maximum_size = Vector2(800, 35)
-offset_left = 176.0
-offset_top = 520.0
-offset_right = 976.0
-offset_bottom = 555.0
+custom_maximum_size = Vector2(500, 35)
+offset_left = 469.72794
+offset_top = 544.02
+offset_right = 969.7279
+offset_bottom = 579.02
+theme_override_colors/default_color = Color(0.7921569, 0.7490196, 0.7411765, 1)
+theme_override_fonts/normal_font = ExtResource("2_t50sv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wwb76")
 text = "option 3"
 shortcut_keys_enabled = false
@@ -100,11 +102,13 @@ horizontal_alignment = 1
 [node name="option 4" type="RichTextLabel" parent="." unique_id=1098175725]
 visible = false
 custom_minimum_size = Vector2(800, 35)
-custom_maximum_size = Vector2(800, 35)
-offset_left = 176.0
-offset_top = 560.0
-offset_right = 976.0
-offset_bottom = 595.0
+custom_maximum_size = Vector2(500, 35)
+offset_left = 469.72794
+offset_top = 584.02
+offset_right = 969.7279
+offset_bottom = 619.02
+theme_override_colors/default_color = Color(0.7921569, 0.7490196, 0.7411765, 1)
+theme_override_fonts/normal_font = ExtResource("2_t50sv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wwb76")
 text = "option 4"
 shortcut_keys_enabled = false

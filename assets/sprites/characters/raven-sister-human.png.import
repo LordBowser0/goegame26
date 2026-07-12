@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxmmav1tsrsk4"
-path="res://.godot/imported/snow-white-passed-out.png-f741dead5638b121ad5c4470c59804f0.ctex"
+uid="uid://13yrwmkhix0"
+path="res://.godot/imported/raven-sister-human.png-ebeaa21c856600018e60aa9a57281b2f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/snow-white-passed-out.png"
-dest_files=["res://.godot/imported/snow-white-passed-out.png-f741dead5638b121ad5c4470c59804f0.ctex"]
+source_file="res://assets/sprites/characters/raven-sister-human.png"
+dest_files=["res://.godot/imported/raven-sister-human.png-ebeaa21c856600018e60aa9a57281b2f.ctex"]
 
 [params]
 

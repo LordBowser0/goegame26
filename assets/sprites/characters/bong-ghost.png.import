@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y53dy0hqhccu"
-path="res://.godot/imported/snow-white.png-8940f2d7c8759187917510d1f6a28f00.ctex"
+uid="uid://b07sjphg30k1c"
+path="res://.godot/imported/bong-ghost.png-8fcfbac93124a9df3514c1e2ff30058c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/snow-white.png"
-dest_files=["res://.godot/imported/snow-white.png-8940f2d7c8759187917510d1f6a28f00.ctex"]
+source_file="res://assets/sprites/characters/bong-ghost.png"
+dest_files=["res://.godot/imported/bong-ghost.png-8fcfbac93124a9df3514c1e2ff30058c.ctex"]
 
 [params]
 

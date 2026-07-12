@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uov5s2r0egjx"
-path="res://.godot/imported/liesel.png-9136a2d28ffd7733fe51473c8325ff0c.ctex"
+uid="uid://esemwe3yox8f"
+path="res://.godot/imported/12-brothers-human.png-2e3edbee3558877c44a408cc78a9402e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/liesel.png"
-dest_files=["res://.godot/imported/liesel.png-9136a2d28ffd7733fe51473c8325ff0c.ctex"]
+source_file="res://assets/sprites/characters/12-brothers-human.png"
+dest_files=["res://.godot/imported/12-brothers-human.png-2e3edbee3558877c44a408cc78a9402e.ctex"]
 
 [params]
 

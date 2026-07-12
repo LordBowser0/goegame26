@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ciuam4ajhkwmi"
-path="res://.godot/imported/oma.png-5e6e8632bb1ad50403272e9a7a9be284.ctex"
+uid="uid://da8eh11ih8umx"
+path="res://.godot/imported/raven-sister.png-629fe5bf51397ae9e93bd159aafa04f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/oma.png"
-dest_files=["res://.godot/imported/oma.png-5e6e8632bb1ad50403272e9a7a9be284.ctex"]
+source_file="res://assets/sprites/characters/raven-sister.png"
+dest_files=["res://.godot/imported/raven-sister.png-629fe5bf51397ae9e93bd159aafa04f4.ctex"]
 
 [params]
 

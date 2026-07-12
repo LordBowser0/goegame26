@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d174k1nmungsb"
-path="res://.godot/imported/raven-sister.png-0df5b1abb8a7151c03cef1cb439d3adb.ctex"
+uid="uid://cto86o4nmrvw"
+path="res://.godot/imported/dwarves.png-9793db8a5f3cfc93fb53bf76b37b9353.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/raven-sister.png"
-dest_files=["res://.godot/imported/raven-sister.png-0df5b1abb8a7151c03cef1cb439d3adb.ctex"]
+source_file="res://assets/sprites/characters/dwarves.png"
+dest_files=["res://.godot/imported/dwarves.png-9793db8a5f3cfc93fb53bf76b37b9353.ctex"]
 
 [params]
 

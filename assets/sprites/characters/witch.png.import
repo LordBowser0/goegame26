@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cika6usenpdbp"
-path="res://.godot/imported/sleeping-beauty.png-7927aeb21f628f0a7b65db0ae22c5c18.ctex"
+uid="uid://i2tvkypgt0n8"
+path="res://.godot/imported/witch.png-8e1b77ea924312f0fe7f73b40478a513.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/sleeping-beauty.png"
-dest_files=["res://.godot/imported/sleeping-beauty.png-7927aeb21f628f0a7b65db0ae22c5c18.ctex"]
+source_file="res://assets/sprites/characters/witch.png"
+dest_files=["res://.godot/imported/witch.png-8e1b77ea924312f0fe7f73b40478a513.ctex"]
 
 [params]
 

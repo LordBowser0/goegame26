@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh514uq3bwvlb"
-path="res://.godot/imported/sleeping-beauty-in-bush.png-69c7b9618c3cd1256f506627e55107c3.ctex"
+uid="uid://dqixdk6whbj1w"
+path="res://.godot/imported/wolf-kiss-frog.png-92849b9bdd1e36833bb5d99b8d0e8c47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/sleeping-beauty-in-bush.png"
-dest_files=["res://.godot/imported/sleeping-beauty-in-bush.png-69c7b9618c3cd1256f506627e55107c3.ctex"]
+source_file="res://assets/sprites/story-panels/wolf-kiss-frog.png"
+dest_files=["res://.godot/imported/wolf-kiss-frog.png-92849b9bdd1e36833bb5d99b8d0e8c47.ctex"]
 
 [params]
 

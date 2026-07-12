@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bldb87lwk2pip"
-path="res://.godot/imported/woodsman.png-83a019b3bd4b1a6cc8e8163bdb4a74ee.ctex"
+uid="uid://c3xslj1bk21il"
+path="res://.godot/imported/oma.png-9993e44942829eedf1c5197d20535f4d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/woodsman.png"
-dest_files=["res://.godot/imported/woodsman.png-83a019b3bd4b1a6cc8e8163bdb4a74ee.ctex"]
+source_file="res://assets/sprites/characters/oma.png"
+dest_files=["res://.godot/imported/oma.png-9993e44942829eedf1c5197d20535f4d.ctex"]
 
 [params]
 

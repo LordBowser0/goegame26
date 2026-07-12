@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj5yvedvsmhtw"
-path="res://.godot/imported/dwarves.png-06eca59adc3fb282de66da6c51c8512c.ctex"
+uid="uid://br1ujkoeitn5r"
+path="res://.godot/imported/bread-crumbs.png-bfa2b2faabcbe0f050b7a91753ff3d05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/dwarves.png"
-dest_files=["res://.godot/imported/dwarves.png-06eca59adc3fb282de66da6c51c8512c.ctex"]
+source_file="res://assets/sprites/items/bread-crumbs.png"
+dest_files=["res://.godot/imported/bread-crumbs.png-bfa2b2faabcbe0f050b7a91753ff3d05.ctex"]
 
 [params]
 

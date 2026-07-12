@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsskhmkn0njqg"
-path="res://.godot/imported/raven-sister-human.png-6c09a1356a2dd448d3262ba92a6c1e23.ctex"
+uid="uid://psx8532xwe3i"
+path="res://.godot/imported/12-ravens.png-4fd9dbc6c3237eea7afc31df220f6c29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/raven-sister-human.png"
-dest_files=["res://.godot/imported/raven-sister-human.png-6c09a1356a2dd448d3262ba92a6c1e23.ctex"]
+source_file="res://assets/sprites/characters/12-ravens.png"
+dest_files=["res://.godot/imported/12-ravens.png-4fd9dbc6c3237eea7afc31df220f6c29.ctex"]
 
 [params]
 

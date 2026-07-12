@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5wdr288i4w22"
-path="res://.godot/imported/wolf.png-6634ada56c221a7d5d405bfb710de378.ctex"
+uid="uid://5dpty0i7kt7c"
+path="res://.godot/imported/liesel.png-ad854c3e4fbec390b8f68f52aceb7877.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/wolf.png"
-dest_files=["res://.godot/imported/wolf.png-6634ada56c221a7d5d405bfb710de378.ctex"]
+source_file="res://assets/sprites/characters/liesel.png"
+dest_files=["res://.godot/imported/liesel.png-ad854c3e4fbec390b8f68f52aceb7877.ctex"]
 
 [params]
 

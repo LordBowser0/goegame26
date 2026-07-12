@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://de84uhwfecrir"
-path="res://.godot/imported/red-riding-hood.png-405e9eb50c79492a187f0bf74552e180.ctex"
+uid="uid://b5xlivwgyx13i"
+path="res://.godot/imported/snow-white-passed-out.png-7088650d0be0a1b60cb65d794b640941.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/red-riding-hood.png"
-dest_files=["res://.godot/imported/red-riding-hood.png-405e9eb50c79492a187f0bf74552e180.ctex"]
+source_file="res://assets/sprites/characters/snow-white-passed-out.png"
+dest_files=["res://.godot/imported/snow-white-passed-out.png-7088650d0be0a1b60cb65d794b640941.ctex"]
 
 [params]
 

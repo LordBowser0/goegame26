@@ -124,6 +124,8 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 					Globals.get_item(Main.ItemIndices.HAS_SEAL_EWALD)
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_FIGHT:
 					Globals.next_event = Main.Followups.DEATH
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.DW_PRINCE:
+					Globals.get_item(Main.ItemIndices.HAS_SEAL_DAHLMANN)
 			event_chosen.emit()
 
 
@@ -161,6 +163,14 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.HUNTER_ABOUT
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_EXITS_BOTTLE:
 					Globals.next_event = Main.Followups.GHOST_FIGHT
+				Main.LocationEvents.DWARVES:
+					if Globals.get_flag(Main.FlagIndices.DWARVES_SW) or Globals.get_flag(Main.FlagIndices.DWARVES_SLEEP):
+						Globals.next_event = Main.Followups.DW_MISSING
+					else:
+						Globals.next_event = Main.Followups.ART
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.ART:
+					Globals.set_flag(Main.FlagIndices.DWARVES_SW)
+					Globals.next_event = Main.Followups.DW_SEARCH
 			event_chosen.emit()
 
 
@@ -178,6 +188,11 @@ func _on_option_3_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.GHOST_EXITS_BOTTLE
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
 					Globals.next_event = Main.Followups.GRANDMA_HUNTER
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.ART:
+					Globals.set_flag(Main.FlagIndices.DWARVES_SLEEP)
+					Globals.next_event = Main.Followups.DW_SEARCH
+				Main.LocationEvents.DWARVES:
+					Globals.next_event = Main.Followups.DW_PRINCE
 			event_chosen.emit()
 
 
@@ -203,9 +218,10 @@ func trigger(event: int) -> void:
 	Globals.next_event = Main.Followups.NONE
 	match event:
 		Main.LocationEvents.NONE:
+			event_chosen.emit()
 			return
 		Main.LocationEvents.WINE_CELLAR:
-			pass
+			return
 		Main.LocationEvents.TAVERN: # tavern
 			$textbox.text = "You arrive at an abandoned tavern. It is a lost place, an old, empty building."
 			$"option 1".text = "You leave this place, as quickly as possible."
@@ -268,8 +284,31 @@ Investigating the hand, you find a whole sleeping woman in the greenery, a woman
 			$"option 3".visible = true
 			valid[2] = true
 		Main.LocationEvents.DWARVES:
-			pass
+			if Globals.get_flag(Main.FlagIndices.DWARVES_SW) or Globals.get_flag(Main.FlagIndices.DWARVES_SLEEP):
+				$textbox.text = "The dwarves have gathered the girl you told them about. She lies in the glass casket and looks quite peaceful. A lot better then when you found her. But the dwarves still seem to be upset about something, they still chatter about something."
+				$"option 1".text = "Leave"
+				$"option 1".visible = true
+				valid[0] = true
+				$"option 2".text = "Ask what the problem is"
+				$"option 2".visible = true
+				valid[1] = true
+				if Globals.get_flag(Main.FlagIndices.FOUND_PRINCE):
+					$"option 3".text = "The prince arrives"
+					$"option 3".visible = true
+					valid[2] = true
+				else:
+					$"option 3".text = "???"
+					$"option 3".visible = true
+			else:
+				$textbox.text = "You see seven short people, surrounding something like a long aquarium. They all seem to be bothered by something, and a quiet chatter fills the air."
+				$"option 1".text = "Leave"
+				$"option 1".visible = true
+				valid[0] = true
+				$"option 2".text = "About you"
+				$"option 2".visible = true
+				valid[1] = true
 		Main.LocationEvents.WELL:
+			event_chosen.emit()
 			return
 		Main.LocationEvents.GOOSE:
 			$textbox.text = "A young woman sits on the sidewalk, surrounded by geese. She looks very nice and comforting. She looks up to you
@@ -289,6 +328,7 @@ The Girl in the red hood looks at you, eyes easily as red as her clothing. In he
 			valid[1] = true
 		Main.LocationEvents.COUNT: # should not be called
 			print_debug("Location count or figure none was called. This should probably not happen")
+			event_chosen.emit()
 			return
 		Main.LocationEvents.COUNT + Main.FigureEvents.WOLF:
 			pass
@@ -324,14 +364,26 @@ As their screaming get louder, you decide that your job here is done. As you wal
 		Main.LocationEvents.COUNT + Main.FigureEvents.RAVEN:
 			pass
 		Main.LocationEvents.COUNT + Main.FigureEvents.PRINCE:
-			pass
-		Main.LocationEvents.COUNT + Main.FigureEvents.HUNTSMAN:
-			pass
+			$textbox.text = "You see a wandering figure on the street. Crown on his head, sword at his side, surely it is a prince. You don't bow, but you greet him, and he greets you.
+'Good Evening, good man, what do you need from us?'"
+			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Ask them (ergh)"
+			$"option 2".visible = true
+			valid[1] = true
+			if Globals.get_flag(Main.FlagIndices.DWARVES_SW) or Globals.get_flag(Main.FlagIndices.DWARVES_SLEEP):
+				$"option 3".text = "Send him to the dwarves"
+				$"option 3".visible = true
+				valid[2] = true
+			else:
+				$"option 3".text = "???"
+				$"option 3".visible = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.SISTER:
 			pass
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.NONE:
 			print_debug("Figure count was called. This should probably not happen")
-			return
+			event_chosen.emit()
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FOUND_SACK:
 			$textbox.text = "You find a shaking sack.
 Best leave it, who knows what is inside?"
@@ -582,8 +634,102 @@ He steps away from you, and smiles.
 			$"option 1".text = "The ghost attacks you!"
 			$"option 1".visible = true
 			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.ART:
+			$textbox.text = "The dwarves look up to you, then leave the glass box and surround you.
+Big
+	Man
+		We
+			Need
+				Help
+					With
+						Our
+Arts
+	Project!
+
+Before you can ask about their project, and get over the fact that they seem to be having some kind of performance art where each one of them can only speak one word, they already continue.
+The
+	Casket
+		is
+			Finished
+				But
+					We
+						Need
+A
+	Sleeping
+		Beauty
+Then they look at you and speak in unison:
+'Please find us a sleeping beauty!'"
+			$"option 1".text = "Promise you'll look for one"
+			$"option 1".visible = true
+			valid[0] = true
+			if Globals.get_flag(Main.FlagIndices.FOUND_SW):
+				$"option 2".text = "Tell them about Snow White"
+				$"option 2".visible = true
+				valid[1] = true
+			else:
+				$"option 2".text = "???"
+				$"option 2".visible = true
+			if Globals.get_flag(Main.FlagIndices.FOUND_SLEEP):
+				$"option 3".text = "Tell them about Sleeping Beauty"
+				$"option 3".visible = true
+				valid[2] = true
+			else:
+				$"option 3".text = "???"
+				$"option 3".visible = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.DW_SEARCH:
+			$textbox.text = "The dwarves get excited. Very exited. You never quite understood these artsy folks, and they aren't the best example to strengthen your trust.
+Then
+	We
+		Should
+			Go
+				As
+					Fast
+						As
+Possible!"
+			$"option 1".text = "And they are off, gathering the beauty."
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.DW_MISSING:
+			$textbox.text = "Well
+	She
+		Is
+			A
+				Sleeping
+					Beauty
+						But
+Now
+	We
+		Need
+			Her
+				To
+					Wake
+						Up!
+You still don't understand artists. But it doesn't matter, seems like you need something or someone to wake her up."
+			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.DW_PRINCE:
+			$textbox.text = "Just as you think that, you hear steps approaching. The prince you've spoken to before arrives. His crown and sword seem to glow in the dark, and the dwarves all gather around him and chatter and point him into the direction of the glass casket.
+He passes the crowd, opens the casket and lowers his head above hers, and you hear him gently whispering something in her ear. 
+With a loud gasp, the girl wakes up and sits straight in the casket. The dwarves cheer loudly, and with surprising strength, they hoist up the casket and the prince on their shoulders and carry them away to somewhere. Probably the museum.
+One of the little guys comes back for one second, pushes something in your hand, and leaves again."
+			$"option 1".text = "It's the Seal of Dahlmann."
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.PRINCE_ABOUT:
+			$textbox.text = "'We are just taking a stroll down this lovely town, life as roylity get's quite dull from time to time. Do you suppose, there are any adventures to be encountered, or maidens to be saved here? It has been quite a drag, this evening, if we shall be honest with you.'"
+			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.PRINCE_DWARVES:
+			$textbox.text = "Oh my, a maiden in need of rescue? Surrounded by delightful magical creatures? Why didn't you lead with that, my friend, off we go then!'"
+			$"option 1".text = "He leaves. Finally."
+			$"option 1".visible = true
+			valid[0] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.COUNT:
 			print_debug("Followups count was called. This should definitely not happen")
+			event_chosen.emit()
+			return
 	
 	
 	visible = true

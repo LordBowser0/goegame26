@@ -6,15 +6,33 @@
 [ext_resource type="PackedScene" uid="uid://byxrg43wjuit8" path="res://scenes/figure.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://ceftvhuepnr5x" path="res://scenes/rotating_camera.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://bdeylqh0a05xw" path="res://scenes/text.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://bqmt7v5s075dq" path="res://assets/models/paper.glb" id="7_u5sy4"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u5sy4"]
+
+[sub_resource type="Sky" id="Sky_u5sy4"]
+sky_material = SubResource("PanoramaSkyMaterial_u5sy4")
+
+[sub_resource type="Environment" id="Environment_im4vw"]
+background_mode = 2
+sky = SubResource("Sky_u5sy4")
+ambient_light_color = Color(0.41598046, 0.41598043, 0.4159804, 1)
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.020256534, 0.0045847488, 0.0012648975, 1)
+fog_density = 1.0
+fog_depth_begin = 30.0
+fog_depth_end = 35.0
 
 [node name="game" type="Node" unique_id=1177366543]
 script = ExtResource("1_lnu2h")
 
 [node name="board" parent="." unique_id=1859905255 instance=ExtResource("1_uwrxv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1507310334]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 21.741993, 0)
+transform = Transform3D(0.704709, -3.1013077e-08, 0.7094965, -0.7094965, -3.0803808e-08, 0.704709, 0, -1, -4.371139e-08, 0, 21.741993, 0)
 shadow_enabled = true
 
 [node name="well" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
@@ -37,5 +55,11 @@ neighbors = [NodePath("../market")]
 
 [node name="event" parent="." unique_id=1845776552 instance=ExtResource("6_p57ef")]
 visible = false
+
+[node name="paper" parent="." unique_id=806445230 instance=ExtResource("7_u5sy4")]
+transform = Transform3D(17.186674, 0, 0, 0, 1, 0, 0, 0, 17.186674, 0.10923338, 0, 0.5117171)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=50789327]
+environment = SubResource("Environment_im4vw")
 
 [connection signal="event_chosen" from="event" to="." method="_on_event_event_chosen"]

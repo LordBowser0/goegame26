@@ -10,4 +10,4 @@ script = ExtResource("1_56mdi")
 script = ExtResource("2_jcmhj")
 
 [node name="Camera3D" type="Camera3D" parent="pitch" unique_id=317664426]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 40)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2717505, 16.682268)

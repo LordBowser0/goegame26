@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://byxrg43wjuit8"]
 
+[ext_resource type="PackedScene" uid="uid://bk3rmwpckldnc" path="res://assets/models/jacob.glb" id="1_a17h2"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_21rw2"]
 
 [node name="figure" type="Node3D" unique_id=519840613]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1048877188]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_21rw2")
+
+[node name="jacob" parent="." unique_id=1422502603 instance=ExtResource("1_a17h2")]

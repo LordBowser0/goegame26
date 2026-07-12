@@ -5,7 +5,7 @@ Go Away
 
 # Attack
 You approach the frog. Your fear is overwhelming, but there is no other way.
-With all your strength, all your heart, and all your might, you raise your foot, and squash all of his majestys 7 inches of body length under your foot.
+With all your strength, all your heart, and all your might, you raise your foot, and squash all of His Majesties majestic 7 inches of body length under your foot.
 "Ahh nah nah mah...", the king says.
 "Ah jahst wanna samane ta kiss mah..."
 Quietly he drags himself away.
@@ -15,7 +15,7 @@ You shall pass.
 
 
 # Kiss Gänseliesl
-You got here before her, but not long. nder the quacking of her geese, Gänseliesl approaches the king of the frogs, completly unbothered by the ungodly stench of his fishy skin.
+You got here before her, but not long. Under the quacking of her geese, Gänseliesl approaches the king of the frogs, completly unbothered by the ungodly stench of his fishy skin.
 "Ey, you old perv!", she screams, "You wanna kiss me, fucker?!"
 "Gah!", the king quacks, as Gänseliels grabs him, lifts him ab, and kisses him like a method of torture.
 

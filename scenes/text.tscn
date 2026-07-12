@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dxsdetvuwv0yo" path="res://scripts/textbox.gd" id="1_wwb76"]
 [ext_resource type="FontFile" uid="uid://i0jrr5468gb5" path="res://assets/fonts/PlayfairDisplay-Regular.ttf" id="2_t50sv"]
+[ext_resource type="Texture2D" uid="uid://i2tvkypgt0n8" path="res://assets/sprites/characters/witch.png" id="3_qooke"]
+[ext_resource type="Shader" uid="uid://b0qvlsdm2wq8p" path="res://scenes/text.gdshader" id="4_r7qis"]
+[ext_resource type="Script" uid="uid://b0hp4qncf2x6n" path="res://scenes/shadow.gd" id="5_x3scf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21rw2"]
 content_margin_left = 20.0
@@ -24,6 +27,9 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.46262854, 0.41098076, 0.39749628, 1)
 border_blend = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_it2pn"]
+shader = ExtResource("4_r7qis")
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1845776552]
 script = ExtResource("1_wwb76")
@@ -115,8 +121,17 @@ shortcut_keys_enabled = false
 horizontal_alignment = 1
 
 [node name="Sprite2D1" type="Sprite2D" parent="." unique_id=532851676]
-position = Vector2(100, 300)
+position = Vector2(224, 300)
 scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_qooke")
+
+[node name="shadow" type="Sprite2D" parent="Sprite2D1" unique_id=1542033996]
+modulate = Color(0.17283267, 0.17283267, 0.17283261, 0.57254905)
+z_index = -1
+material = SubResource("ShaderMaterial_it2pn")
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_qooke")
+script = ExtResource("5_x3scf")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2078225908]
 visible = false

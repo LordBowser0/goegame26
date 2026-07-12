@@ -49,7 +49,7 @@ event = 2
 neighbors = [NodePath("../grandma"), NodePath("../goose")]
 
 [node name="start_pos" parent="." unique_id=1397801874 instance=ExtResource("2_yqjtg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.387058, 1.2299671, -8.446513)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.387, 0, -8.447)
 neighbors = [NodePath("../goose"), NodePath("../snowwhite")]
 
 [node name="player" parent="." unique_id=519840613 instance=ExtResource("4_lbhrr")]

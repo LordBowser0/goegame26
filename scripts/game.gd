@@ -55,6 +55,7 @@ enum Followups {
 	RED_AGAIN,
 	RED_LEAVE,
 	RED_ABOUT,
+	HUNTER_ABOUT,
 	COUNT
 }
 

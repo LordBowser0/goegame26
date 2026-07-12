@@ -44,6 +44,10 @@ enum Followups {
 	GRANDMA_WINE,
 	GHOST_DEATH,
 	GRANDMA_AGAIN,
+	SW_KISS,
+	SW_SLAP,
+	SLEEP_KISS,
+	SLEEP_SLAP,
 	COUNT
 }
 
@@ -55,6 +59,8 @@ enum FlagIndices {
 	FROG_GOOSE,
 	MET_FROG,
 	MET_RED,
+	FOUND_SW,
+	FOUND_SLEEP,
 	COUNT
 }
 

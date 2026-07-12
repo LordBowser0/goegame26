@@ -4,9 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://g0dexoviipkg" path="res://scenes/board.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://bstm5dl6c57sr" path="res://scenes/board_position.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://byxrg43wjuit8" path="res://scenes/figure.tscn" id="4_lbhrr"]
+[ext_resource type="Script" uid="uid://codlkxakrgdn3" path="res://scenes/fixed_camera.gd" id="5_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://ceftvhuepnr5x" path="res://scenes/rotating_camera.tscn" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://bdeylqh0a05xw" path="res://scenes/text.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://bqmt7v5s075dq" path="res://assets/models/paper.glb" id="7_u5sy4"]
+[ext_resource type="Script" uid="uid://crl4dubvc4385" path="res://scenes/omni_light_3d.gd" id="8_gee14"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u5sy4"]
 
@@ -33,10 +35,11 @@ visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1507310334]
 transform = Transform3D(0.704709, -3.1013077e-08, 0.7094965, -0.7094965, -3.0803808e-08, 0.704709, 0, -1, -4.371139e-08, 0, 21.741993, 0)
+visible = false
 shadow_enabled = true
 
 [node name="well" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.70267, 0, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.757825, 0, 6.7054977)
 event = 2
 neighbors = [NodePath("../market")]
 
@@ -46,12 +49,19 @@ event = 1
 neighbors = [NodePath("../start_pos"), NodePath("../well")]
 
 [node name="start_pos" parent="." unique_id=1397801874 instance=ExtResource("2_yqjtg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.013443, 0, -4.468502)
 neighbors = [NodePath("../market")]
 
 [node name="player" parent="." unique_id=519840613 instance=ExtResource("4_lbhrr")]
 
+[node name="Camera3D" type="Camera3D" parent="." unique_id=520452962 node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.783726, 8.040501, 14.911951)
+fov = 60.0
+script = ExtResource("5_0tnpc")
+target = NodePath("../player")
+
 [node name="rotating_camera" parent="." unique_id=222205219 instance=ExtResource("5_iywne")]
+visible = false
 
 [node name="event" parent="." unique_id=1845776552 instance=ExtResource("6_p57ef")]
 visible = false
@@ -61,5 +71,31 @@ transform = Transform3D(17.186674, 0, 0, 0, 1, 0, 0, 0, 17.186674, 0.10923338, 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=50789327]
 environment = SubResource("Environment_im4vw")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1944004078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0425525, 5.1684065, -5.999588)
+light_color = Color(0.9836455, 0.8161564, 0.67620164, 1)
+light_energy = 2.926
+shadow_enabled = true
+omni_range = 18.24295
+script = ExtResource("8_gee14")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=579386745]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8901615, 6.9866676, 0.18907213)
+light_color = Color(0.9481805, 0.71562177, 0.3690462, 1)
+light_energy = 2.926
+shadow_enabled = true
+omni_range = 18.24295
+script = ExtResource("8_gee14")
+interval = 0.2
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=334149996]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3680115, 6.9866686, 9.218095)
+light_color = Color(0.9481805, 0.71562177, 0.3690462, 1)
+light_energy = 2.926
+shadow_enabled = true
+omni_range = 18.24295
+script = ExtResource("8_gee14")
+interval = 0.2
 
 [connection signal="event_chosen" from="event" to="." method="_on_event_event_chosen"]

@@ -73,6 +73,10 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 			match current_event:
 				Main.LocationEvents.GOOSE:
 					Globals.next_event = Main.Followups.GOOSE_1
+				Main.LocationEvents.ALLEY:
+					Globals.next_event = Main.Followups.SW_SLAP
+				Main.LocationEvents.ROSE_BUSH:
+					Globals.next_event = Main.Followups.SLEEP_SLAP
 				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
 					Globals.next_event = Main.Followups.GRANDMA_ABOUT
 				Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
@@ -85,6 +89,20 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FOUND_CLUB:
 					Globals.set_flag(Main.FlagIndices.FOUND_CLUB)
 					Globals.give_item(Main.ItemIndices.HAS_CLUB)
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_ABOUT:
+					pass # end dialogue
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_RED:
+					pass # end dialogue
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
+					Globals.give_item(Main.ItemIndices.HAS_SEAL_EWALD)
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SW_SLAP:
+					Globals.next_event = Main.Followups.SW_KISS
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SW_KISS:
+					Globals.next_event = Main.Followups.SW_SLAP
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SLEEP_SLAP:
+					Globals.next_event = Main.Followups.SLEEP_KISS
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SLEEP_KISS:
+					Globals.next_event = Main.Followups.SLEEP_SLAP
 			event_chosen.emit()
 
 
@@ -96,6 +114,10 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 			match current_event:
 				Main.LocationEvents.TAVERN:
 					Globals.next_event = Main.Followups.FOUND_SACK
+				Main.LocationEvents.ALLEY:
+					Globals.next_event = Main.Followups.SW_KISS
+				Main.LocationEvents.ROSE_BUSH:
+					Globals.next_event = Main.Followups.SLEEP_KISS
 				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
 					Globals.next_event = Main.Followups.GRANDMA_RED
 				Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
@@ -104,7 +126,9 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.FOUND_CLUB
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_2:
 					Globals.give_item(Main.ItemIndices.HAS_BREADCRUMBS)
-				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_ABOUT:
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_ABOUT:	
+					Globals.next_event = Main.Followups.GRANDMA_AGAIN
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_RED:
 					Globals.next_event = Main.Followups.GRANDMA_AGAIN
 			event_chosen.emit()
 
@@ -115,6 +139,8 @@ func _on_option_3_gui_input(event: InputEvent) -> void:
 			print("Option 3")
 			visible = false
 			match current_event:
+				Main.LocationEvents.ALLEY:
+					pass # end dialogue
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_2:
 					Globals.set_flag(Main.FlagIndices.FROG_GOOSE)
 				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
@@ -133,6 +159,7 @@ func _on_option_4_gui_input(event: InputEvent) -> void:
 			event_chosen.emit()
 
 
+# when an event is triggered
 func trigger(event: int) -> void:
 	$"option 1".visible = false
 	$"option 2".visible = false
@@ -158,11 +185,11 @@ func trigger(event: int) -> void:
 		Main.LocationEvents.GRANDMA:
 			$textbox.text = "A sweet old lady, sitting in a cozy little house, surrounded by a lifetime of experience and collected treasures. She smiles, as she sees you.
 'Come in, dear. I am so lonely here, my last visitor left two whole hours ago. Take a cookie, sweetie. Or maybe five.'"
-			$"option 1".text = "About"
+			$"option 1".text = "Ask about her"
 			$"option 1".visible = true
 			valid[0] = true
 			if Globals.get_flag(Main.FlagIndices.MET_RED):
-				$"option 2".text = "About Red Riding Hood"
+				$"option 2".text = "Ask about Red Riding Hood"
 				$"option 2".visible = true
 				valid[1] = true
 			else:
@@ -183,13 +210,34 @@ func trigger(event: int) -> void:
 				$"option 4".text = "???"
 				$"option 4".visible = true
 		Main.LocationEvents.ROSE_BUSH:
-			pass
+			Globals.set_flag(Main.FlagIndices.FOUND_SW)
+			$textbox.text = "As you walk down the street, you notice something. A hand hangs out of the shrubbery beside the road.
+Investigating the hand, you find a whole sleeping woman in the greenery, a woman of staggering beauty.  Quite the sight, but you are a bit concerned, as she doesn't seem to wake up."
+			$"option 1".text = "Slap her"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Kiss her"
+			$"option 2".visible = true
+			valid[1] = true
+			$"option 3".text = "Leave"
+			$"option 3".visible = true
+			valid[2] = true
 		Main.LocationEvents.ALLEY:
-			pass
+			Globals.set_flag(Main.FlagIndices.FOUND_SW)
+			$textbox.text = "Passing a dark alleyway, you see someone lying on the ground. A girl, very black hair, but unhealthy looking white skin. Beside her, there is an apple on the ground, with a big bite taken out of it. The girl doesn't move and doesn't wake up, so you take the apple."
+			$"option 1".text = "Slap her"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Kiss her"
+			$"option 2".visible = true
+			valid[1] = true
+			$"option 3".text = "Leave"
+			$"option 3".visible = true
+			valid[2] = true
 		Main.LocationEvents.DWARVES:
 			pass
 		Main.LocationEvents.WELL:
-			pass
+			return
 		Main.LocationEvents.GOOSE:
 			$textbox.text = "A young woman sits on the sidewalk, surrounded by geese. She looks very nice and comforting. She looks up to you
 'Oh, hello kind Sir, how can I help you?'"
@@ -372,6 +420,38 @@ The Ghost nods, and you die. But as pleasantly as you could wish for."
 			else:
 				$"option 4".text = "???"
 				$"option 4".visible = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SW_SLAP:
+			$textbox.text = "You slap her. But she doesn't wake up. And now you feel like a dick."
+			$"option 1".text = "Kiss her"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Leave"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SW_KISS:
+			$textbox.text = "Better not. That is a privilige of princes and perverts."
+			$"option 1".text = "Slap her"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Leave"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SLEEP_SLAP:
+			$textbox.text = "You slap her. But she doesn't wake up. And now you feel like a dick."
+			$"option 1".text = "Kiss her"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Leave"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SLEEP_KISS:
+			$textbox.text = "Better not. That is a privilige of princes and perverts."
+			$"option 1".text = "Slap her"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Leave"
+			$"option 2".visible = true
+			valid[1] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.COUNT:
 			print_debug("Followups count was called. This should definitely not happen")
 	

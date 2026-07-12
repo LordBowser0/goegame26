@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bdeylqh0a05xw"]
 
 [ext_resource type="Script" uid="uid://dxsdetvuwv0yo" path="res://scripts/textbox.gd" id="1_wwb76"]
+[ext_resource type="Texture2D" uid="uid://5pqwtj3v5bkr" path="res://assets/sprites/characters/red-riding-hood.png" id="2_t50sv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21rw2"]
 content_margin_left = 10.0
@@ -108,6 +109,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_wwb76")
 text = "option 4"
 shortcut_keys_enabled = false
 horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=532851676]
+visible = false
+position = Vector2(100, 300)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_t50sv")
 
 [connection signal="gui_input" from="option 1" to="." method="_on_option_1_gui_input"]
 [connection signal="mouse_entered" from="option 1" to="." method="_on_option_1_mouse_entered"]

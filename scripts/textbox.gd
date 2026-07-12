@@ -375,11 +375,6 @@ Gänseliesl seems to be doing great against the 12 ravens, but you are concernd 
 			var texture = load('res://assets/sprites/characters/liesel.png')
 			$Sprite2D1.texture = texture
 			$Sprite2D1.visible = true
-			$textbox.text = "A young woman sits on the sidewalk, surrounded by geese. She looks very nice and comforting. She looks up to you
-'Oh, hello kind Sir, how can I help you?'"
-			$"option 1".text = "Ask about her"
-			$"option 1".visible = true
-			valid[0] = true
 		Main.LocationEvents.RED:
 			var texture = load('res://assets/sprites/characters/red-riding-hood.png')
 			$Sprite2D1.texture = texture

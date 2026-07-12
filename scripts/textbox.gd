@@ -207,6 +207,9 @@ func trigger(event: int) -> void:
 		Main.LocationEvents.WINE_CELLAR:
 			pass
 		Main.LocationEvents.TAVERN: # tavern
+			var texture = load('res://assets/sprites/characters/liesel.png')
+			$Sprite2D1.texture = texture
+			$Sprite2D1.visible = false
 			$textbox.text = "You arrive at an abandoned tavern. It is a lost place, an old, empty building."
 			$"option 1".text = "You leave this place, as quickly as possible."
 			$"option 1".visible = true
@@ -216,6 +219,9 @@ func trigger(event: int) -> void:
 				$"option 2".visible = true
 				valid[1] = true
 		Main.LocationEvents.GRANDMA:
+			var texture = load('res://assets/sprites/characters/oma.png')
+			$Sprite2D1.texture = texture
+			$Sprite2D1.visible = true
 			$textbox.text = "A sweet old lady, sitting in a cozy little house, surrounded by a lifetime of experience and collected treasures. She smiles, as she sees you.
 'Come in, dear. I am so lonely here, my last visitor left two whole hours ago. Take a cookie, sweetie. Or maybe five.'"
 			$"option 1".text = "Ask about her"
@@ -244,6 +250,9 @@ func trigger(event: int) -> void:
 				$"option 4".visible = true
 		Main.LocationEvents.ROSE_BUSH:
 			Globals.set_flag(Main.FlagIndices.FOUND_SW)
+			var texture = load('res://assets/sprites/characters/sleeping-beauty-in-bush.png')
+			$Sprite2D1.texture = texture
+			$Sprite2D1.visible = true
 			$textbox.text = "As you walk down the street, you notice something. A hand hangs out of the shrubbery beside the road.
 Investigating the hand, you find a whole sleeping woman in the greenery, a woman of staggering beauty.  Quite the sight, but you are a bit concerned, as she doesn't seem to wake up."
 			$"option 1".text = "Slap her"
@@ -257,6 +266,9 @@ Investigating the hand, you find a whole sleeping woman in the greenery, a woman
 			valid[2] = true
 		Main.LocationEvents.ALLEY:
 			Globals.set_flag(Main.FlagIndices.FOUND_SW)
+			var texture = load('res://assets/sprites/characters/snow-white-passed-out.png')
+			$Sprite2D1.texture = texture
+			$Sprite2D1.visible = true
 			$textbox.text = "Passing a dark alleyway, you see someone lying on the ground. A girl, very black hair, but unhealthy looking white skin. Beside her, there is an apple on the ground, with a big bite taken out of it. The girl doesn't move and doesn't wake up, so you take the apple."
 			$"option 1".text = "Slap her"
 			$"option 1".visible = true
@@ -272,12 +284,18 @@ Investigating the hand, you find a whole sleeping woman in the greenery, a woman
 		Main.LocationEvents.WELL:
 			return
 		Main.LocationEvents.GOOSE:
+			var texture = load('res://assets/sprites/characters/liesel.png')
+			$Sprite2D1.texture = texture
+			$Sprite2D1.visible = true
 			$textbox.text = "A young woman sits on the sidewalk, surrounded by geese. She looks very nice and comforting. She looks up to you
 'Oh, hello kind Sir, how can I help you?'"
 			$"option 1".text = "Ask about her"
 			$"option 1".visible = true
 			valid[0] = true
 		Main.LocationEvents.RED:
+			var texture = load('res://assets/sprites/characters/red-riding-hood.png')
+			$Sprite2D1.texture = texture
+			$Sprite2D1.visible = true
 			$textbox.text = "'Eeeey... maaaan...'
 The Girl in the red hood looks at you, eyes easily as red as her clothing. In her hand she holds a flask, emitting fine white vapor.
 'Whazzup...?'"
@@ -295,6 +313,12 @@ The Girl in the red hood looks at you, eyes easily as red as her clothing. In he
 		Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
 			Globals.set_flag(Main.FlagIndices.MET_FROG)
 			if Globals.get_flag(Main.FlagIndices.FROG_WOLF):
+				var texture = load('res://assets/sprites/characters/wolf.png')
+				$Sprite2D1.texture = texture
+				$Sprite2D1.visible = true
+				var texture2 = load('res://assets/sprites/characters/frog.png')
+				$Sprite2D2.texture = texture2
+				$Sprite2D2.visible = true
 				$textbox.text = "As you arrive, the wolf is already here, talking to to the king, sitting on his big paw. You can't here their dialogue, but the frog seems to be nervous. Then, you see the wolfs slowly lifting the frog to his mouth, and gently kissing the frog. A thick cloud of fog materializes around the two, you heare harps. Then the fog lifts. Holding his paws, in front of the wolf you see a prince. Then, before anyone can say anything, the prince opens his eyes, sees the wolf, blushes, and faints. 
 The wolf looks to the prince on the floor, then to you. He smiles, shrugs, and walks away.
 As you too walk away, you notice something on the ground."
@@ -302,6 +326,12 @@ As you too walk away, you notice something on the ground."
 				$"option 1".visible = true
 				valid[0] = true
 			elif Globals.get_flag(Main.FlagIndices.FROG_GOOSE):
+				var texture = load('res://assets/sprites/characters/frog.png')
+				$Sprite2D1.texture = texture
+				$Sprite2D1.visible = true
+				var texture2 = load('res://assets/sprites/characters/')
+				$Sprite2D2.texture = texture2
+				$Sprite2D2.visible = true
 				$textbox.text = "You got here before her, but not long. Under the quacking of her geese, Gänseliesl approaches the king of the frogs, completly unbothered by the ungodly stench of his fishy skin.
 'Ey, you old perv!', she screams, 'You wanna kiss me, fucker?!'
 'Gah!', the king quacks, as Gänseliels grabs him, lifts him ab, and kisses him like a method of torture.
@@ -314,6 +344,10 @@ As their screaming get louder, you decide that your job here is done. As you wal
 				$"option 1".visible = true
 				valid[0] = true
 			else:
+				var texture = load('res://assets/sprites/characters/frog.png')
+				$Sprite2D1.texture = texture
+				$Sprite2D1.visible = true
+				$Sprite2D2.visible = false
 				$textbox.text = "A menacing sight, the king of the frogs cowers above the street, blocking your path. It smells like fish and rotting plants. His crown is rusted and jagged, as if designed to stab insubordinates, not to distinguish royality. You should keep your distance. This path is blocked for you. Do not try to fight it."
 				$"option 1".text = "Go Away"
 				$"option 1".visible = true
@@ -358,8 +392,8 @@ Best leave it, who knows what is inside?"
 			$textbox.text = "The geese look up to you.
 'Me? I'm just a humble little bird, may I ask your...'
 'Ey, who the fuck are you talking to?', the woman screams, and the goose shrinks away.
-'Why are ya talking to my bird ya fucker?!' That one was for you. Her voice sounds like some kind of bird.
-'Who the fuck is asking who I am, why don't you fuck off and mind your own goddamn business'"
+'Why are ya talking to my bird ya bastard?!' That one was for you. Her voice sounds like some kind of bird.
+'Who the hell is asking who I am, why don't you piss off and mind your own goddamn business'"
 			$"option 1".text = "Ask about her again"
 			$"option 1".visible = true
 			valid[0] = true
@@ -413,6 +447,9 @@ A  ghost!
 
 The ghost is looking down on you, with hatred burning in his eyes.
 'Mortal!', he announces, 'Thank you for freeing me from my prison! As a reward, I shall grant you the choice on how you want to die!'"
+			var texture = load('res://assets/sprites/characters/bong-ghost.png')
+			$Sprite2D1.texture = texture
+			$Sprite2D1.visible = true
 			$"option 1".text = "Wish for death"
 			$"option 1".visible = true
 			valid[0] = true
@@ -434,6 +471,9 @@ She hands you, you almost can't believe it, the Seal of Gervinus!"
 			else:
 				$textbox.text += "Suddenly, again, glass explodes, this time the window. The Big Bad Wolf jumps into grandmas living room and knocks her over, she goes down with a small scream. 
 The Wolf towers over both of you, drivel runs from his jaws. You have to be nuts to fight him."
+				var texture = load('res://assets/sprites/characters/wolf.png')
+				$Sprite2D2.texture = texture
+				$Sprite2D2.visible = true
 				$"option 1".text = "Fight!"
 				$"option 1".visible = true
 				valid[0] = true
@@ -455,10 +495,14 @@ The Wolf towers over both of you, drivel runs from his jaws. You have to be nuts
 			$textbox.text = "You state your preferred way to die. You thought about it a lot, and now is the time.
 The Ghost nods, and you die. In about 50 years, in bed, surrounded by your loved ones.
 Content with his work, the ghost vanishes. He leaves something on the ground."
+			$Sprite2D2.visible = false
 			$"option 1".text = "It is the Seal of Ewald! You take it"
 			$"option 1".visible = true
 			valid[0] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+			var texture = load('res://assets/sprites/characters/oma.png')
+			$Sprite2D1.texture = texture
+			$Sprite2D1.visible = true
 			$textbox.text = "A sweet old lady, sitting in a cozy little house, surrounded by a lifetime of experience and collected treasures. She smiles, as she sees you.
 'Come in, dear. I am so lonely here, my last visitor left two whole hours ago. Take a cookie, sweetie. Or maybe five.'"
 			$"option 1".text = "About"

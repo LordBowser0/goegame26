@@ -58,6 +58,12 @@ enum Followups {
 	HUNTER_ABOUT,
 	GHOST_FIGHT,
 	DEATH, # game over
+	ART,
+	DW_SEARCH,
+	DW_MISSING,
+	DW_PRINCE,
+	PRINCE_ABOUT,
+	PRINCE_DWARVES,
 	COUNT
 }
 
@@ -73,6 +79,9 @@ enum FlagIndices {
 	FOUND_SLEEP,
 	DEFEATED_WOLF,
 	FOUND_WOODSMAN,
+	DWARVES_SW,
+	DWARVES_SLEEP,
+	FOUND_PRINCE,
 	COUNT
 }
 
@@ -126,6 +135,7 @@ func walk_to(node: Node3D):
 		arrow.queue_free()
 	arrows.clear()
 	
+	player.look_at(node.position, Vector3(0, 1, 0), true)
 	player.position = node.position
 	current_position = node
 	# next, events trigger:

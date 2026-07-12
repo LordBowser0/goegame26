@@ -126,6 +126,7 @@ func walk_to(node: Node3D):
 		arrow.queue_free()
 	arrows.clear()
 	
+	player.look_at(node.position, Vector3(0, 1, 0), true)
 	player.position = node.position
 	current_position = node
 	# next, events trigger:

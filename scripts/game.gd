@@ -56,6 +56,8 @@ enum Followups {
 	RED_LEAVE,
 	RED_ABOUT,
 	HUNTER_ABOUT,
+	GHOST_FIGHT,
+	DEATH, # game over
 	COUNT
 }
 

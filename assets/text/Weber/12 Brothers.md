@@ -6,7 +6,7 @@ IF first encounter
 With one hand you cover you eyes. With the other, you grab one of the fowels and throw it away from you. The other birds cry and get more angry.
 
 ## Attack
-You grab to other birds and smash their heads together, they fall to the ground and slowly get up again. The other ones seem scared and fly away, followed by the two you grabbed.
+You grab two other birds and smash their heads together, they fall to the ground and slowly get up again. The other ones seem scared and fly away, followed by the two you grabbed.
 
 # Throw Breadcrumbs
 You reach into your pocket, where you kept the breadcrumbs, that Gänseliesel threw at you. You throw them on the ground around you. All at once, the 12 birds stop their attack, fly to the ground around you and start feeding on the crumbs.

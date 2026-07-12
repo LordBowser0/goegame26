@@ -126,6 +126,19 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.DEATH
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.DW_PRINCE:
 					Globals.get_item(Main.ItemIndices.HAS_SEAL_DAHLMANN)
+				Main.LocationEvents.COUNT + Main.FigureEvents.SISTER:
+					if Globals.get_flag(Main.FlagIndices.RAVENS_SISTER):
+						Globals.get_item(Main.ItemIndices.HAS_SEAL_WEBER)
+					else:
+						Globals.next_event = Main.Followups.SISTER_ABOUT
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SISTER_ABOUT:
+					Globals.next_event = Main.Followups.SISTER_NO
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SISTER_ABOUT:
+					Globals.set_flag(Main.FlagIndices.FOUND_SISTER)
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RAVENS_DEFEND:
+					Globals.next_event = Main.Followups.RAVENS_ATTACK
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RAVENS_BREADCRUMBS:
+					Globals.set_flag(Main.FlagIndices.RAVENS_GOOSE)
 			event_chosen.emit()
 
 
@@ -171,6 +184,13 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.ART:
 					Globals.set_flag(Main.FlagIndices.DWARVES_SW)
 					Globals.next_event = Main.Followups.DW_SEARCH
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SISTER_ABOUT:
+					Globals.next_event = Main.Followups.SISTER_YES
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RAVENS_BREADCRUMBS:
+					Globals.set_flag(Main.FlagIndices.RAVENS_SISTER)
+				Main.LocationEvents.GOOSE:
+					Globals.set_flag(Main.FlagIndices.RAVENS_SISTER)
+					Globals.unset_flag(Main.FlagIndices.RAVENS_GOOSE)
 			event_chosen.emit()
 
 
@@ -193,6 +213,8 @@ func _on_option_3_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.DW_SEARCH
 				Main.LocationEvents.DWARVES:
 					Globals.next_event = Main.Followups.DW_PRINCE
+				Main.LocationEvents.COUNT + Main.FigureEvents.RAVEN:
+					go_back.emit()
 			event_chosen.emit()
 
 
@@ -221,7 +243,14 @@ func trigger(event: int) -> void:
 			event_chosen.emit()
 			return
 		Main.LocationEvents.WINE_CELLAR:
-			return
+			$textbox.text = "A broken hole in the ground appears to be the collapsed ceiling of an old wine cellar. You smell the odor of uncountable smashed wine bottles, the smell enough to waste a small empire. But maybe there is something valuable at the bottom."
+			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+			if not Globals.flags[Main.FlagIndices.FOUND_WINE]:
+				$"option 2".text = "Explore"
+				$"option 2".visible = true
+				valid[1] = true
 		Main.LocationEvents.TAVERN: # tavern
 			$textbox.text = "You arrive at an abandoned tavern. It is a lost place, an old, empty building."
 			$"option 1".text = "You leave this place, as quickly as possible."
@@ -311,11 +340,26 @@ Investigating the hand, you find a whole sleeping woman in the greenery, a woman
 			event_chosen.emit()
 			return
 		Main.LocationEvents.GOOSE:
-			$textbox.text = "A young woman sits on the sidewalk, surrounded by geese. She looks very nice and comforting. She looks up to you
-'Oh, hello kind Sir, how can I help you?'"
-			$"option 1".text = "Ask about her"
-			$"option 1".visible = true
-			valid[0] = true
+			if Globals.get_flag(Main.FlagIndices.RAVENS_GOOSE):
+				$textbox.text = "The ravens are swarming the girl you thought might be their sister, but their angry cries compell you to overthink your ideal. The young Woman has a goose in her fist and swings it as a club to scare away the ravens.
+'I already got my own flying pest, get away from me, you rats!'
+Gänseliesl seems to be doing great against the 12 ravens, but you are concernd about the goose."
+				$"option 1".text = "Let them be"
+				$"option 1".visible = true
+				valid[0] = true
+				if Globals.get_flag(Main.FlagIndices.FOUND_SISTER):
+					$"option 2".text = "Send them to the lost girl"
+					$"option 2".visible = true
+					valid[1] = true
+				else:
+					$"option 2".text = "???"
+					$"option 2".visible = true
+			else:
+				$textbox.text = "A young woman sits on the sidewalk, surrounded by geese. She looks very nice and comforting. She looks up to you
+	'Oh, hello kind Sir, how can I help you?'"
+				$"option 1".text = "Ask about her"
+				$"option 1".visible = true
+				valid[0] = true
 		Main.LocationEvents.RED:
 			$textbox.text = "'Eeeey... maaaan...'
 The Girl in the red hood looks at you, eyes easily as red as her clothing. In her hand she holds a flask, emitting fine white vapor.
@@ -362,7 +406,20 @@ As their screaming get louder, you decide that your job here is done. As you wal
 				$"option 2".visible = true
 				valid[1] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.RAVEN:
-			pass
+			$textbox.text = "A murder af 12 big black birds decent on you, all cawing and clawing around you, screaming their unintelligeble bird voices at you. You are pretty sure, they are attacking you."
+			$"option 1".text = "Defend"
+			$"option 1".visible = true
+			valid[0] = true
+			if Globals.get_item(Main.ItemIndices.HAS_BREADCRUMBS):
+				$"option 2".text = "Throw breadcrumbs"
+				$"option 2".visible = true
+				valid[1] = true
+			else:
+				$"option 2".text = "???"
+				$"option 2".visible = true
+			$"option 3".text = "Flee"
+			$"option 3".visible = true
+			valid[2] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.PRINCE:
 			$textbox.text = "You see a wandering figure on the street. Crown on his head, sword at his side, surely it is a prince. You don't bow, but you greet him, and he greets you.
 'Good Evening, good man, what do you need from us?'"
@@ -380,7 +437,22 @@ As their screaming get louder, you decide that your job here is done. As you wal
 				$"option 3".text = "???"
 				$"option 3".visible = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.SISTER:
-			pass
+			if Globals.get_flag(Main.FlagIndices.RAVENS_SISTER):
+				$textbox.text = "As you approach the murder, you see the little mute girl surrounded by her 12 brothers. Just she isn't mute anymore. She laughs and cries and tries to hug all the small creatures.
+As you watch this heartwarming scene, the ravens are flying faster and faster around the girl, until she is obscured by a black cloud of feathers. 
+And then they are off. 13 big, black birds are flying into the sky, and soon they are gone.
+They only leave one small object on the ground, where the lost girl stood."
+				$"option 1".text = "It's Weber's Seal! Another one!"
+				$"option 1".visible = true
+				valid[0] = true
+			else:
+				$textbox.text = "A little girl, dirty but quick, walks across the street. She looks in every window, every ally, every corner. She seems determined on something, and doesn't bother noticing you."
+				$"option 1".text = "About you"
+				$"option 1".visible = true
+				valid[0] = true
+				$"option 2".text = "Leave"
+				$"option 2".visible = true
+				valid[1] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.NONE:
 			print_debug("Figure count was called. This should probably not happen")
 			event_chosen.emit()
@@ -724,6 +796,63 @@ One of the little guys comes back for one second, pushes something in your hand,
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.PRINCE_DWARVES:
 			$textbox.text = "Oh my, a maiden in need of rescue? Surrounded by delightful magical creatures? Why didn't you lead with that, my friend, off we go then!'"
 			$"option 1".text = "He leaves. Finally."
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SISTER_ABOUT:
+			$textbox.text = "The girl stops and looks at you, and seems top think about, if answering you may be worth her time. Hewr mouth is taped shut.
+Instead of answering you, she pulls out a handmade sign, saying 'Have you seen 12 ravens?'"
+			$"option 1".text = "You have not."
+			$"option 1".visible = true
+			valid[0] = true
+			if Globals.get_flag(Main.FlagIndices.FOUND_RAVENS):
+				$"option 2".text = "You have, actually."
+				$"option 2".visible = true
+				valid[1] = true
+			else:
+				$"option 2".text = "???"
+				$"option 2".visible = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SISTER_NO:
+			$textbox.text = "She looks sad, but not surprised. She turns around and keeps searching."
+			$"option 1".text = "..."
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SISTER_YES:
+			$textbox.text = "Her Eyes widen. She looks at you, begging for elaboration.
+As you tell her, that the whereabouts of bird are hard to be sure about, her eyes dim again."
+			$"option 1".text = "You promise to send the ravens to her"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FOUND_WINE:
+			$textbox.text = "You hold your breath and climb into the hole. You feel funny, even though you try to breathe as little as possible. You pass over smashed bottles, broken barrels, and ceiling stones, everything ankle deep in wine. You search in the darkness, until your hands find a bottle that doesn't feel broken. You grab it, and you leave."
+			$"option 1".text = "You found wine."
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RAVENS_DEFEND:
+			$textbox.text = "With one hand you cover you eyes. With the other, you grab one of the fowels and throw it away from you. The other birds cry and get more angry."
+			$"option 1".text = "Attack"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RAVENS_ATTACK:
+			$textbox.text = "You grab two other birds and smash their heads together, they fall to the ground and slowly get up again. The other ones seem scared and fly away, followed by the two you grabbed."
+			$"option 1".text = "They flee"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RAVENS_BREADCRUMBS:
+			$textbox.text = "You reach into your pocket, where you kept the breadcrumbs, that Gänseliesel threw at you. You throw them on the ground around you. All at once, the 12 birds stop their attack, fly to the ground around you and start feeding on the crumbs.
+'Sister, Siiiister', they caw, as they feed. 'You seen Siiiiister?'"
+			$"option 1".text = "Send them to Gänseliesl"
+			$"option 1".visible = true
+			valid[0] = true
+			if Globals.get_flag(Main.FlagIndices.FOUND_SISTER):
+				$"option 2".text = "Send them to the lost girl"
+				$"option 2".visible = true
+				valid[1] = true
+			else:
+				$"option 2".text = "???"
+				$"option 2".visible = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RAVENS_LEAVE:
+			$textbox.text = "They fly off, followed by excited cawing."
+			$"option 1".text = "..."
 			$"option 1".visible = true
 			valid[0] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.COUNT:

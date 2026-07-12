@@ -44,7 +44,7 @@ event = 7
 neighbors = [NodePath("../market")]
 
 [node name="market" parent="." unique_id=1347024676 instance=ExtResource("2_yqjtg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 0.9999682, 0.007976853, 0, -0.007976853, 0.9999682, 5, 0, 3)
 event = 2
 neighbors = [NodePath("../start_pos"), NodePath("../well")]
 

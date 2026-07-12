@@ -95,10 +95,9 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 					pass # end dialogue
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
 					if Globals.get_flag(Main.FlagIndices.DEFEATED_WOLF):
-						Globals.give_item(Main.ItemIndices.HAS_SEAL_EWALD)
+						Globals.give_item(Main.ItemIndices.HAS_SEAL_GERVINUS)
 					else:
-						## todo die
-						pass
+						Globals.next_event = Main.Followups.DEATH
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SW_SLAP:
 					Globals.next_event = Main.Followups.SW_KISS
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SW_KISS:
@@ -119,6 +118,12 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.RED_ABOUT
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_LEAVE:
 					Globals.give_item(Main.ItemIndices.HAS_GHOST)
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_EXITS_BOTTLE:
+					Globals.next_event = Main.Followups.GHOST_DEATH
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_DEATH:
+					Globals.get_item(Main.ItemIndices.HAS_SEAL_EWALD)
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_FIGHT:
+					Globals.next_event = Main.Followups.DEATH
 			event_chosen.emit()
 
 
@@ -154,6 +159,8 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.RED_LEAVE
 				Main.LocationEvents.COUNT + Main.FigureEvents.HUNTSMAN:
 					Globals.next_event = Main.Followups.HUNTER_ABOUT
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_EXITS_BOTTLE:
+					Globals.next_event = Main.Followups.GHOST_FIGHT
 			event_chosen.emit()
 
 
@@ -402,14 +409,14 @@ The silly old lady smiles, takes a cookie herself and looks at it, like at a fir
 			$textbox.text = "You take out Red's bottle of whine, and Grandmas eyes go bright.
 'Ah, my sweet child, she always remembers me. Grandma loves a little glass of wine from time to time. Go ahead, open it up!'
 You squeeze the Cork, twist the bottle, and with a loud Bang, the bottle explodes, spraying everything with fine glass powder. Grandma cowers behind her chair. Above the table, a towering figure floats.
-A  Ghost!
+A  ghost!
 
-The Ghost is looking down on you, with hatred burning in his eyes.
+The ghost is looking down on you, with hatred burning in his eyes.
 'Mortal!', he announces, 'Thank you for freeing me from my prison! As a reward, I shall grant you the choice on how you want to die!'"
 			$"option 1".text = "Wish for death"
 			$"option 1".visible = true
 			valid[0] = true
-			$"option 2".text = "Fight"
+			$"option 2".text = "Attack the ghost"
 			$"option 2".visible = true
 			valid[1] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
@@ -445,9 +452,10 @@ The Wolf towers over both of you, drivel runs from his jaws. You have to be nuts
 					$"option 3".text = "???"
 					$"option 3".visible = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_DEATH:
-			$textbox.text = "You state your prefered way to die. You thought about it a lot, and now is the time.
-The Ghost nods, and you die. But as pleasantly as you could wish for."
-			$"option 1".text = "..."
+			$textbox.text = "You state your preferred way to die. You thought about it a lot, and now is the time.
+The Ghost nods, and you die. In about 50 years, in bed, surrounded by your loved ones.
+Content with his work, the ghost vanishes. He leaves something on the ground."
+			$"option 1".text = "It is the Seal of Ewald! You take it"
 			$"option 1".visible = true
 			valid[0] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
@@ -567,6 +575,11 @@ He comes closer and lowers his voice, as if telling you a secret.
 He steps away from you, and smiles.
 'So for now I must bide you farewell, my friend. But if you meet the wolf, give ma a call. I have a sharp axe, that is waiting for him.'"
 			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_FIGHT:
+			$textbox.text = "You take a swing at the ghost, but your fist passes right through him. He is a ghost, silly, what did you think"
+			$"option 1".text = "The ghost attacks you!"
 			$"option 1".visible = true
 			valid[0] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.COUNT:

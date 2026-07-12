@@ -44,8 +44,9 @@ IF wolf isn't defeated yet
 Suddenly, again, glass explode, this time the window. The Big Bad Wolf jumps into grandmas living room and knocks her over, she goes down with a small scream. 
 The Wolf towers over both of you, drivel runs from his jaws. You have to be nuts to fight him.
 
-## Fight
 
+## Fight
+You try to punch the wolf, but you should have known it better. The wolf doesn't have any of it, he snaps at your arm, and two bites later, you are dead.
 
 ## Club from the sack
 IF club from the sack in inventory

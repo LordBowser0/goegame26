@@ -38,19 +38,19 @@ transform = Transform3D(0.704709, -3.1013077e-08, 0.7094965, -0.7094965, -3.0803
 visible = false
 shadow_enabled = true
 
-[node name="well" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
+[node name="prince" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.757825, 0, 6.7054977)
 event = 7
-neighbors = [NodePath("../market")]
+neighbors = [NodePath("../tavern")]
 
-[node name="market" parent="." unique_id=1347024676 instance=ExtResource("2_yqjtg")]
+[node name="tavern" parent="." unique_id=1347024676 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 0.9999682, 0.007976853, 0, -0.007976853, 0.9999682, 5, 0, 3)
 event = 2
-neighbors = [NodePath("../start_pos"), NodePath("../well")]
+neighbors = [NodePath("../start_pos"), NodePath("../prince")]
 
 [node name="start_pos" parent="." unique_id=1397801874 instance=ExtResource("2_yqjtg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.013443, 0, -4.468502)
-neighbors = [NodePath("../market")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.387058, 1.2299671, -8.446513)
+neighbors = [NodePath("../tavern")]
 
 [node name="player" parent="." unique_id=519840613 instance=ExtResource("4_lbhrr")]
 
@@ -97,6 +97,34 @@ interval = 0.2
 
 [node name="paper" parent="." unique_id=1899475186 instance=ExtResource("9_0tnpc")]
 transform = Transform3D(16.755, 0, 0, 0, 16.755, 0, 0, 0, 16.755, 0.050426483, -1.9073486e-06, 0.015274048)
+
+[node name="grandma" parent="." unique_id=1252508276 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.201334, -0.10867596, 8.706745)
+event = 3
+
+[node name="dwarf" parent="." unique_id=718875909 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1424456, 0, 9.53179)
+event = 6
+
+[node name="snowwhite" parent="." unique_id=1231607862 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0211544, 0, -4.4864826)
+event = 5
+
+[node name="sleepingbeauty" parent="." unique_id=1784865822 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.128526, 0, -2.829527)
+event = 4
+
+[node name="winecellar" parent="." unique_id=1602429978 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0462751, 1.9073486e-06, -9.549433)
+event = 1
+
+[node name="red" parent="." unique_id=847496870 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9350014, 0, 9.964952)
+event = 9
+
+[node name="goose" parent="." unique_id=154772792 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.07493, 0, -2.2489984)
+event = 8
 
 [connection signal="event_chosen" from="event" to="." method="_on_event_event_chosen"]
 [connection signal="go_back" from="event" to="." method="_on_event_go_back"]

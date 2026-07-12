@@ -152,6 +152,8 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.RED_LEAVE
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_AGAIN:
 					Globals.next_event = Main.Followups.RED_LEAVE
+				Main.LocationEvents.COUNT + Main.FigureEvents.HUNTSMAN:
+					Globals.next_event = Main.Followups.HUNTER_ABOUT
 			event_chosen.emit()
 
 
@@ -547,6 +549,24 @@ As you don't seem to say no, she hands you a bottle. You have to grab it quckly,
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_ABOUT:
 			$textbox.text = "'Heheeee... huh? What about me?', she asks, her eyes drifting between you and the sky. 'Im Red Riding Hood, man. I mean... Whaaaaaaat?'"
 			$"option 1".text = "You don't think she has a very good grasp on the situation."
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.HUNTSMAN:
+			$textbox.text = "It is a strange sight indeed, and a quite sad one. A woodsman without wood. A man of the forest, trapped in the city. A smiling jester on the outside, what must be a hollow shell on the inside. You feel a strange connection to this man, and want to cheer him up.
+'Hello, my friend', the woodsman greets you, 'Why the sad face on such a great day?'"
+			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "About you"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.HUNTER_ABOUT:
+			$textbox.text = "'My friend, what is there to tell about me? I'm a woodsman, a simple craftsman, but with a very high mission'
+He comes closer and lowers his voice, as if telling you a secret.
+'I'm not just a simple man of felled timber, you have to imagine. I am on the holy quest to slay my arch nemesis, the Big Bad Wolf. Rumor has it, that he is somewhere here in the city. And I will find him, believe me'
+He steps away from you, and smiles.
+'So for now I must bide you farewell, my friend. But if you meet the wolf, give ma a call. I have a sharp axe, that is waiting for him.'"
+			$"option 1".text = "Leave"
 			$"option 1".visible = true
 			valid[0] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.COUNT:

@@ -73,6 +73,8 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 			match current_event:
 				Main.LocationEvents.GOOSE:
 					Globals.next_event = Main.Followups.GOOSE_1
+				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+					Globals.next_event = Main.Followups.GRANDMA_ABOUT
 				Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
 					if Globals.get_flag(Main.FlagIndices.FROG_GOOSE) or Globals.get_flag(Main.FlagIndices.FROG_WOLF):
 						Globals.give_item(Main.ItemIndices.HAS_SEAL_ALBRECHT)
@@ -94,12 +96,16 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 			match current_event:
 				Main.LocationEvents.TAVERN:
 					Globals.next_event = Main.Followups.FOUND_SACK
+				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+					Globals.next_event = Main.Followups.GRANDMA_RED
 				Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
 					Globals.next_event = Main.Followups.FROG_FIGHT
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FOUND_SACK:
 					Globals.next_event = Main.Followups.FOUND_CLUB
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_2:
 					Globals.give_item(Main.ItemIndices.HAS_BREADCRUMBS)
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_ABOUT:
+					Globals.next_event = Main.Followups.GRANDMA_AGAIN
 			event_chosen.emit()
 
 
@@ -111,6 +117,8 @@ func _on_option_3_gui_input(event: InputEvent) -> void:
 			match current_event:
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_2:
 					Globals.set_flag(Main.FlagIndices.FROG_GOOSE)
+				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+					Globals.next_event = Main.Followups.GHOST_EXITS_BOTTLE
 			event_chosen.emit()
 
 
@@ -119,6 +127,9 @@ func _on_option_4_gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and valid[3]:
 			print("Option 4")
 			visible = false
+			match current_event:
+				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+					Globals.next_event = Main.Followups.GRANDMA_WINE
 			event_chosen.emit()
 
 
@@ -145,7 +156,32 @@ func trigger(event: int) -> void:
 				$"option 2".visible = true
 				valid[1] = true
 		Main.LocationEvents.GRANDMA:
-			pass
+			$textbox.text = "A sweet old lady, sitting in a cozy little house, surrounded by a lifetime of experience and collected treasures. She smiles, as she sees you.
+'Come in, dear. I am so lonely here, my last visitor left two whole hours ago. Take a cookie, sweetie. Or maybe five.'"
+			$"option 1".text = "About"
+			$"option 1".visible = true
+			valid[0] = true
+			if Globals.get_flag(Main.FlagIndices.MET_RED):
+				$"option 2".text = "About Red Riding Hood"
+				$"option 2".visible = true
+				valid[1] = true
+			else:
+				$"option 2".text = "???"
+				$"option 2".visible = true
+			if Globals.get_item(Main.ItemIndices.HAS_GHOST):
+				$"option 3".text = "Give her the wine from Red Riding Hood"
+				$"option 3".visible = true
+				valid[2] = true
+			else:
+				$"option 3".text = "???"
+				$"option 3".visible = true
+			if Globals.get_item(Main.ItemIndices.HAS_WINE):
+				$"option 4".text = "Give her the wine you found in the cellar"
+				$"option 4".visible = true
+				valid[3] = true
+			else:
+				$"option 4".text = "???"
+				$"option 4".visible = true
 		Main.LocationEvents.ROSE_BUSH:
 			pass
 		Main.LocationEvents.ALLEY:
@@ -259,6 +295,83 @@ She grabs one of the geese by the neck and runs off.'"
 			$"option 1".text = "Follow her"
 			$"option 1".visible = true
 			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_ABOUT:
+			$textbox.text = "'Oh, what about me? I'm just a silly old lady'
+The silly old lady smiles, takes a cookie herself and looks at it, like at a first born child."
+			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Talk some more"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_RED:
+			$textbox.text = "'Oh, dear, Little Red sent you' She smiles, but she seems to be a bit sad.
+'Red is a good girl, she is just a bit too...' She leaves the sentence unfinished. Quiet for one second. Then she smiles.
+'But she is a good girl, believe me. She is caring and sweet, and always thinks of her dear old grandma'"
+			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Talk some more"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_EXITS_BOTTLE:
+			$textbox.text = "You take out Red's bottle of whine, and Grandmas eyes go bright.
+'Ah, my sweet child, she always remembers me. Grandma loves a little glass of wine from time to time. Go ahead, open it up!'
+You squeeze the Cork, twist the bottle, and with a loud Bang, the bottle explodes, spraying everything with fine glass powder. Grandma cowers behind her chair. Above the table, a towering figure floats.
+A  Ghost!
+
+The Ghost is looking down on you, with hatred burning in his eyes.
+'Mortal!', he announces, 'Thank you for freeing me from my prison! As a reward, I shall grant you the choice on how you want to die!'"
+			$"option 1".text = "Wish for death"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Fight"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
+			$textbox.text = "You pull out the bottle of wine and Grandmas eyes go bright.
+'Ah, my sweet child, she always remembers me. Grandma loves a little glass of wine from time to time. Go ahead, open it up'.
+You squeeze the Cork, twist the bottle, and pour a bit of the red liquid in Grandmas glass. She takes a sip and smiles.
+
+'Oh, thank you dear, that was wonderful' Grandma smiles, and your heart gets warm. She is so sweet.
+'Here, my dear, take this. Take this'
+She hands you, you almost can't believe it, the Seal of Gervinus!"
+			$"option 1".text = "You got another seal!"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_DEATH:
+			$textbox.text = "You state your prefered way to die. You thought about it a lot, and now is the time.
+The Ghost nods, and you die. But as pleasantly as you could wish for."
+			$"option 1".text = "..."
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+			$textbox.text = "A sweet old lady, sitting in a cozy little house, surrounded by a lifetime of experience and collected treasures. She smiles, as she sees you.
+'Come in, dear. I am so lonely here, my last visitor left two whole hours ago. Take a cookie, sweetie. Or maybe five.'"
+			$"option 1".text = "About"
+			$"option 1".visible = true
+			valid[0] = true
+			if Globals.get_flag(Main.FlagIndices.MET_RED):
+				$"option 2".text = "About Red Riding Hood"
+				$"option 2".visible = true
+				valid[1] = true
+			else:
+				$"option 2".text = "???"
+				$"option 2".visible = true
+			if Globals.get_item(Main.ItemIndices.HAS_GHOST):
+				$"option 3".text = "Give her the wine from Red Riding Hood"
+				$"option 3".visible = true
+				valid[2] = true
+			else:
+				$"option 3".text = "???"
+				$"option 3".visible = true
+			if Globals.get_item(Main.ItemIndices.HAS_WINE):
+				$"option 4".text = "Give her the wine you found in the cellar"
+				$"option 4".visible = true
+				valid[3] = true
+			else:
+				$"option 4".text = "???"
+				$"option 4".visible = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.COUNT:
 			print_debug("Followups count was called. This should definitely not happen")
 	

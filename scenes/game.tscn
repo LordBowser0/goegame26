@@ -97,7 +97,7 @@ script = ExtResource("8_gee14")
 interval = 0.2
 
 [node name="paper" parent="." unique_id=1899475186 instance=ExtResource("9_0tnpc")]
-transform = Transform3D(16.755, 0, 0, 0, 16.755, 0, 0, 0, 16.755, 0.050426483, -1.9073486e-06, 0.015274048)
+transform = Transform3D(16.755001, 0, 0, 0, 16.755001, 0, 0, 0, 16.755001, 0.050426483, -1.9073486e-06, 0.015274048)
 
 [node name="grandma" parent="." unique_id=1252508276 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.201334, -0.10867596, 8.706745)
@@ -147,7 +147,7 @@ neighbors = [NodePath("../prince"), NodePath("../board_position")]
 
 [node name="board_position4" parent="." unique_id=1996518886 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7135754, 0, -8.039319)
-neighbors = [NodePath("."), NodePath("../sleepingbeauty")]
+neighbors = [NodePath("../board_position"), NodePath("../sleepingbeauty")]
 
 [connection signal="event_chosen" from="event" to="." method="_on_event_event_chosen"]
 [connection signal="go_back" from="event" to="." method="_on_event_go_back"]

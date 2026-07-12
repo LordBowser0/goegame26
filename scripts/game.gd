@@ -172,7 +172,7 @@ func _on_event_event_chosen() -> void:
 
 func make_arrows():
 	var a_scene = preload("res://scenes/movement_arrows.tscn")
-	
+	print_debug("Making arrows")
 	for pos in current_position.neighbors:
 		var instance = a_scene.instantiate()
 		add_child(instance)

@@ -77,7 +77,9 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.SW_SLAP
 				Main.LocationEvents.ROSE_BUSH:
 					Globals.next_event = Main.Followups.SLEEP_SLAP
-				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+				Main.LocationEvents.GRANDMA:
+					Globals.next_event = Main.Followups.GRANDMA_ABOUT
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
 					Globals.next_event = Main.Followups.GRANDMA_ABOUT
 				Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
 					if Globals.get_flag(Main.FlagIndices.FROG_GOOSE) or Globals.get_flag(Main.FlagIndices.FROG_WOLF):
@@ -154,7 +156,9 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.SW_KISS
 				Main.LocationEvents.ROSE_BUSH:
 					Globals.next_event = Main.Followups.SLEEP_KISS
-				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+				Main.LocationEvents.GRANDMA:
+					Globals.next_event = Main.Followups.GRANDMA_RED
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
 					Globals.next_event = Main.Followups.GRANDMA_RED
 				Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
 					Globals.next_event = Main.Followups.FROG_FIGHT
@@ -204,7 +208,9 @@ func _on_option_3_gui_input(event: InputEvent) -> void:
 					pass # end dialogue
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_2:
 					Globals.set_flag(Main.FlagIndices.FROG_GOOSE)
-				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+				Main.LocationEvents.GRANDMA:
+					Globals.next_event = Main.Followups.GHOST_EXITS_BOTTLE
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
 					Globals.next_event = Main.Followups.GHOST_EXITS_BOTTLE
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
 					Globals.next_event = Main.Followups.GRANDMA_HUNTER
@@ -224,7 +230,9 @@ func _on_option_4_gui_input(event: InputEvent) -> void:
 			print("Option 4")
 			visible = false
 			match current_event:
-				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
+				Main.LocationEvents.GRANDMA:
+					Globals.next_event = Main.Followups.GRANDMA_WINE
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
 					Globals.next_event = Main.Followups.GRANDMA_WINE
 			event_chosen.emit()
 

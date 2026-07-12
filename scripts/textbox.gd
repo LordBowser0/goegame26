@@ -141,6 +141,8 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.RAVENS_ATTACK
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RAVENS_BREADCRUMBS:
 					Globals.set_flag(Main.FlagIndices.RAVENS_GOOSE)
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.DEATH:
+					get_tree().reload_current_scene()
 			event_chosen.emit()
 
 
@@ -911,6 +913,11 @@ As you tell her, that the whereabouts of bird are hard to be sure about, her eye
 			print_debug("Followups count was called. This should definitely not happen")
 			event_chosen.emit()
 			return
-	
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.DEATH:
+			$textbox.text = "You died.
+You've met with a terrible fate, but fear not, you are a historical figure, so you can try again! No time to stay wasted!"
+			$"option 1".text = "Try again!"
+			$"option 1".visible = true
+			valid[0] = true
 	
 	visible = true

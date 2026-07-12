@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://26ybxloq647j"]
+
+[ext_resource type="Script" uid="uid://crn6quqbeubca" path="res://scripts/game.gd" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://g0dexoviipkg" path="res://scenes/board.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://bstm5dl6c57sr" path="res://scenes/board_position.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://byxrg43wjuit8" path="res://scenes/figure.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://ceftvhuepnr5x" path="res://scenes/rotating_camera.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://bdeylqh0a05xw" path="res://scenes/text.tscn" id="6_p57ef"]
+
+[node name="game" type="Node" unique_id=1177366543]
+script = ExtResource("1_lnu2h")
+
+[node name="board" parent="." unique_id=1859905255 instance=ExtResource("1_uwrxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1507310334]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 21.741993, 0)
+shadow_enabled = true
+
+[node name="well" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.70267, 0, 7)
+event = 2
+neighbors = [NodePath("../market")]
+
+[node name="market" parent="." unique_id=1347024676 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
+event = 1
+neighbors = [NodePath("../start_pos"), NodePath("../well")]
+
+[node name="start_pos" parent="." unique_id=1397801874 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -14)
+neighbors = [NodePath("../market")]
+
+[node name="player" parent="." unique_id=519840613 instance=ExtResource("4_lbhrr")]
+
+[node name="rotating_camera" parent="." unique_id=222205219 instance=ExtResource("5_iywne")]
+
+[node name="event" parent="." unique_id=1845776552 instance=ExtResource("6_p57ef")]
+offset = Vector2(150, 0)
+transform = Transform2D(1, 0, 0, 1, 150, 0)
+
+[connection signal="event_chosen" from="event" to="." method="_on_event_event_chosen"]

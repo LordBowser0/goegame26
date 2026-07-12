@@ -2,29 +2,69 @@ extends Node
 class_name Main
 
 var current_position: Node3D = null
+var last_position: Node3D = null
 var player: Node3D = null
 var arrows: Array = []
 
 enum LocationEvents {
 	NONE,
-	WINE,
-	TAVERN
+	WINE_CELLAR,
+	TAVERN,
+	GRANDMA,
+	ROSE_BUSH, ## sleeping beauty
+	ALLEY, ## snow white
+	DWARVES,
+	WELL,
+	GOOSE,
+	COUNT
 }
 
 enum FigureEvents {
 	NONE,
 	WOLF,
 	FROG,
-	RAVEN
+	RAVEN,
+	PRINCE,
+	HUNTSMAN,
+	SISTER,
+	COUNT
+}
+
+enum Followups {
+	NONE,
+	FOUND_CLUB,
+	FOUND_SACK,
+	FROG_FIGHT,
+	GOOSE_1,
+	GOOSE_2,
+	GOOSE_KISS,
+	COUNT
 }
 
 enum FlagIndices {
 	FOUND_CLUB,
-	COUNT ## to initialize array size
+	RELEASED_GHOST,
+	FOUND_WINE,
+	FROG_WOLF,
+	FROG_GOOSE,
+	MET_FROG,
+	COUNT
 }
 
-
-var flags: Array[bool] = []
+enum ItemIndices {
+	HAS_CLUB,
+	HAS_GHOST, # "Wine" bottle
+	HAS_WINE,
+	HAS_BREADCRUMBS,
+	HAS_SEAL_JAKOB,
+	HAS_SEAL_ALBRECHT,
+	HAS_SEAL_DAHLMANN,
+	HAS_SEAL_EWALD,
+	HAS_SEAL_GERVINUS,
+	HAS_SEAL_WEBER,
+	HAS_SEAL_WILHELM,
+	COUNT ## to initialize array size
+}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -33,8 +73,7 @@ func _ready() -> void:
 
 
 func new_game():
-	flags.resize(FlagIndices.COUNT)
-	flags.fill(false)
+	
 	
 	current_position = find_child("start_pos", false)
 	if current_position == null:
@@ -51,14 +90,10 @@ func new_game():
 	walk_to(current_position)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 ## CORE GAME LOOP
 # first, the player walks to a node
 func walk_to(node: Node3D):
+	last_position = current_position
 	print_debug("Now walking to: ", node)
 	
 	# remove all arrows
@@ -80,6 +115,9 @@ func walk_to(node: Node3D):
 
 # continue turn after choosing event
 func _on_event_event_chosen() -> void:
+	if Globals.next_event != Followups.NONE:
+		trigger_followup(Globals.next_event)
+		return
 	# all other figures move according to their pattern
 	## todo
 	# make arrows to allow the player to move
@@ -98,23 +136,28 @@ func make_arrows():
 		arrows.append(instance)
 
 
-func trigger_figure(event:FigureEvents):
-	_on_event_event_chosen()
+func trigger_figure(event: FigureEvents):
+	match event:
+		FigureEvents.NONE:
+			_on_event_event_chosen() # should not happen
+		_:
+			$event.trigger(LocationEvents.COUNT + event)
 
 
 func trigger_location(event: LocationEvents):
 	match event:
 		LocationEvents.NONE:
 			_on_event_event_chosen()
-		LocationEvents.WINE:
-			$event.visible = true
-		LocationEvents.TAVERN:
-			var event_text = FileAccess.open(
-			"res://assets/event_texts/event_tavern.txt", FileAccess.READ).get_as_text()
-			var split = event_text.split("$")
-			$event/textbox.text = split[0].strip_edges()
-			$"event/option 1".text = split[1].strip_edges()
-			$"event/option 2".text = split[2].strip_edges()
-			$"event/option 3".text = split[3].strip_edges()
-			$"event/option 4".text = split[4].strip_edges()
-			$event.visible = true
+		_:
+			$event.trigger(event)
+
+
+func trigger_followup(event: Followups):
+	match event:
+		Followups.NONE:
+			_on_event_event_chosen() # should not happen
+		_:
+			$event.trigger(LocationEvents.COUNT + FigureEvents.COUNT + event)
+
+func _on_event_go_back() -> void:
+	walk_to(last_position)

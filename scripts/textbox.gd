@@ -1,18 +1,19 @@
 extends CanvasLayer
 
 signal event_chosen
+signal go_back
+
+var valid: Array[bool] = []
+var current_event: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	valid = [true, false, false, false]
 	$"option 1".pivot_offset = $"option 1".size / 2
 	$"option 2".pivot_offset = $"option 2".size / 2
 	$"option 3".pivot_offset = $"option 3".size / 2
 	$"option 4".pivot_offset = $"option 4".size / 2
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 ## todo remove
 func _unhandled_input(event):
@@ -29,7 +30,8 @@ func _on_textbox_gui_input(event: InputEvent) -> void:
 var scaling = 1.05
 
 func _on_option_1_mouse_entered() -> void:
-	$"option 1".scale *= scaling
+	if valid[0]:
+		$"option 1".scale *= scaling
 
 
 func _on_option_1_mouse_exited() -> void:
@@ -37,7 +39,8 @@ func _on_option_1_mouse_exited() -> void:
 
 
 func _on_option_2_mouse_entered() -> void:
-	$"option 2".scale *= scaling
+	if valid[1]:
+		$"option 2".scale *= scaling
 
 
 func _on_option_2_mouse_exited() -> void:
@@ -45,7 +48,8 @@ func _on_option_2_mouse_exited() -> void:
 
 
 func _on_option_3_mouse_entered() -> void:
-	$"option 3".scale *= scaling
+	if valid[2]:
+		$"option 3".scale *= scaling
 
 
 func _on_option_3_mouse_exited() -> void:
@@ -53,7 +57,8 @@ func _on_option_3_mouse_exited() -> void:
 
 
 func _on_option_4_mouse_entered() -> void:
-	$"option 4".scale *= scaling
+	if valid[3]:
+		$"option 4".scale *= scaling
 
 
 func _on_option_4_mouse_exited() -> void:
@@ -62,31 +67,200 @@ func _on_option_4_mouse_exited() -> void:
 
 func _on_option_1_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and valid[0]:
 			print("Option 1")
 			visible = false
+			match current_event:
+				Main.LocationEvents.GOOSE:
+					Globals.next_event = Main.Followups.GOOSE_1
+				Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
+					if Globals.get_flag(Main.FlagIndices.FROG_GOOSE) or Globals.get_flag(Main.FlagIndices.FROG_WOLF):
+						Globals.give_item(Main.ItemIndices.HAS_SEAL_ALBRECHT)
+					else:
+						go_back.emit()
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_1:
+					Globals.next_event = Main.Followups.GOOSE_2
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FOUND_CLUB:
+					Globals.set_flag(Main.FlagIndices.FOUND_CLUB)
+					Globals.give_item(Main.ItemIndices.HAS_CLUB)
 			event_chosen.emit()
 
 
 func _on_option_2_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and valid[1]:
 			print("Option 2")
 			visible = false
+			match current_event:
+				Main.LocationEvents.TAVERN:
+					Globals.next_event = Main.Followups.FOUND_SACK
+				Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
+					Globals.next_event = Main.Followups.FROG_FIGHT
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FOUND_SACK:
+					Globals.next_event = Main.Followups.FOUND_CLUB
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_2:
+					Globals.give_item(Main.ItemIndices.HAS_BREADCRUMBS)
 			event_chosen.emit()
 
 
 func _on_option_3_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and valid[2]:
 			print("Option 3")
 			visible = false
+			match current_event:
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_2:
+					Globals.set_flag(Main.FlagIndices.FROG_GOOSE)
 			event_chosen.emit()
 
 
 func _on_option_4_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and valid[3]:
 			print("Option 4")
 			visible = false
 			event_chosen.emit()
+
+
+func trigger(event: int) -> void:
+	$"option 1".visible = false
+	$"option 2".visible = false
+	$"option 3".visible = false
+	$"option 4".visible = false
+	valid.fill(false)
+	current_event = event
+	Globals.next_event = Main.Followups.NONE
+	match event:
+		Main.LocationEvents.NONE:
+			return
+		Main.LocationEvents.WINE_CELLAR:
+			pass
+		Main.LocationEvents.TAVERN: # tavern
+			$textbox.text = "You arrive at an abandoned tavern. It is a lost place, an old, empty building."
+			$"option 1".text = "You leave this place, as quickly as possible."
+			$"option 1".visible = true
+			valid[0] = true
+			if not Globals.flags[Main.FlagIndices.FOUND_CLUB]:
+				$"option 2".text = "Search the tavern, maybe something useful is here?"
+				$"option 2".visible = true
+				valid[1] = true
+		Main.LocationEvents.GRANDMA:
+			pass
+		Main.LocationEvents.ROSE_BUSH:
+			pass
+		Main.LocationEvents.ALLEY:
+			pass
+		Main.LocationEvents.DWARVES:
+			pass
+		Main.LocationEvents.WELL:
+			pass
+		Main.LocationEvents.GOOSE:
+			$textbox.text = "A young woman sits on the sidewalk, surrounded by geese. She looks very nice and comforting. She looks up to you
+'Oh, hello kind Sir, how can I help you?'"
+			$"option 1".text = "Ask about her"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT: # should not be called
+			print_debug("Location count or figure none was called. This should probably not happen")
+			return
+		Main.LocationEvents.COUNT + Main.FigureEvents.WOLF:
+			pass
+		Main.LocationEvents.COUNT + Main.FigureEvents.FROG:
+			Globals.set_flag(Main.FlagIndices.MET_FROG)
+			if Globals.get_flag(Main.FlagIndices.FROG_WOLF):
+				$textbox.text = "As you arrive, the wolf is already here, talking to to the king, sitting on his big paw. You can't here their dialogue, but the frog seems to be nervous. Then, you see the wolfs slowly lifting the frog to his mouth, and gently kissing the frog. A thick cloud of fog materializes around the two, you heare harps. Then the fog lifts. Holding his paws, in front of the wolf you see a prince. Then, before anyone can say anything, the prince opens his eyes, sees the wolf, blushes, and faints. 
+The wolf looks to the prince on the floor, then to you. He smiles, shrugs, and walks away.
+As you too walk away, you notice something on the ground."
+				$"option 1".text = "It's the Seal of Albrecht! The prince must have lost it. You got another seal!"
+				$"option 1".visible = true
+				valid[0] = true
+			elif Globals.get_flag(Main.FlagIndices.FROG_GOOSE):
+				$textbox.text = "You got here before her, but not long. Under the quacking of her geese, Gänseliesl approaches the king of the frogs, completly unbothered by the ungodly stench of his fishy skin.
+'Ey, you old perv!', she screams, 'You wanna kiss me, fucker?!'
+'Gah!', the king quacks, as Gänseliels grabs him, lifts him ab, and kisses him like a method of torture.
+
+With a loud poof, Gänseliesl and the king getting obscured by a cloud of smoke. You can hear harps. As the fog lifts, Gänseliesl is still standing there, her hand tightly grabbing the throat of a slightly green and wet prince.
+'So, hat do you say, asshole?' If you didn't know any better, Gänseliesl looks content with herself.
+'What do I say?!What was that, you crazy bitch, you trying to kill me?! I could put you to death for this!' 'You weird fuck wanted to kiss me!'
+As their screaming get louder, you decide that your job here is done. As you walk away, you notice something on the ground."
+				$"option 1".text = "It's the Seal of Albrecht! The prince must have lost it. You got another seal!"
+				$"option 1".visible = true
+				valid[0] = true
+			else:
+				$textbox.text = "A menacing sight, the king of the frogs cowers above the street, blocking your path. It smells like fish and rotting plants. His crown is rusted and jagged, as if designed to stab insubordinates, not to distinguish royality. You should keep your distance. This path is blocked for you. Do not try to fight it."
+				$"option 1".text = "Go Away"
+				$"option 1".visible = true
+				valid[0] = true
+				$"option 2".text = "Attack"
+				$"option 2".visible = true
+				valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.RAVEN:
+			pass
+		Main.LocationEvents.COUNT + Main.FigureEvents.PRINCE:
+			pass
+		Main.LocationEvents.COUNT + Main.FigureEvents.HUNTSMAN:
+			pass
+		Main.LocationEvents.COUNT + Main.FigureEvents.SISTER:
+			pass
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.NONE:
+			print_debug("Figure count was called. This should probably not happen")
+			return
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FOUND_SACK:
+			$textbox.text = "You find a shaking sack.
+Best leave it, who knows what is inside?"
+			$"option 1".text = "Leave it"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Open it"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FOUND_CLUB:
+			$textbox.text = "Inside the sack is a magical club."
+			$"option 1".text = "Take it with you"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Put it back"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.FROG_FIGHT:
+			$textbox.text = "You approach the frog. Your fear is overwhelming, but there is no other way. With all your strength, all your heart, and all your might, you raise your foot, and squash all of His Majesties majestic 7 inches of body length under your foot. 'Ahh nah nah mah... ', the king says. 'Ah jahst wanna samane ta kiss mah...' Quietly he drags himself away."
+			$"option 1".text = "You shall pass"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_1:
+			$textbox.text = "The geese look up to you.
+'Me? I'm just a humble little bird, may I ask your...'
+'Ey, who the fuck are you talking to?', the woman screams, and the goose shrinks away.
+'Why are ya talking to my bird ya fucker?!' That one was for you. Her voice sounds like some kind of bird.
+'Who the fuck is asking who I am, why don't you fuck off and mind your own goddamn business'"
+			$"option 1".text = "Ask about her again"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_2:
+			$textbox.text = "'Grimm, what a stupid old name for an old fucker. I'm Gänseliesl.'
+The first goose looks like she wants to say something, but Gänseliesl pushes her away. 'Shut up, fowl. And you, fuck off!'
+She throws Breadcrumbs at you until you leave.'"
+			$"option 1".text = "Leave"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Take some breadcrumbs with you"
+			$"option 2".visible = true
+			valid[1] = true
+			if Globals.get_flag(Main.FlagIndices.MET_FROG) and not Globals.get_flag(Main.FlagIndices.FROG_WOLF):
+				$"option 3".text = "Tell her about the frog king's desire for a kiss"
+				$"option 3".visible = true
+				valid[2] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GOOSE_KISS:
+			$textbox.text = "The geese start to chatter.
+'What? A King? I, oh my, I never expected that we would be a fit for royality...'
+'Who the fuck asked you', she interrupts the goose, than looks at you with contempt.
+'Some highborn asshole thinks he can have Gänseliesl as his fucking little plaything? I'll show him!'
+She grabs one of the geese by the neck and runs off.'"
+			$"option 1".text = "Follow her"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.COUNT:
+			print_debug("Followups count was called. This should definitely not happen")
+	
+	
+	visible = true

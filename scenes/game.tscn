@@ -40,12 +40,12 @@ shadow_enabled = true
 
 [node name="well" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.757825, 0, 6.7054977)
-event = 2
+event = 7
 neighbors = [NodePath("../market")]
 
 [node name="market" parent="." unique_id=1347024676 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 3)
-event = 1
+event = 2
 neighbors = [NodePath("../start_pos"), NodePath("../well")]
 
 [node name="start_pos" parent="." unique_id=1397801874 instance=ExtResource("2_yqjtg")]
@@ -64,7 +64,8 @@ target = NodePath("../player")
 visible = false
 
 [node name="event" parent="." unique_id=1845776552 instance=ExtResource("6_p57ef")]
-visible = false
+offset = Vector2(150, 0)
+transform = Transform2D(1, 0, 0, 1, 150, 0)
 
 [node name="paper" parent="." unique_id=806445230 instance=ExtResource("7_u5sy4")]
 transform = Transform3D(17.186674, 0, 0, 0, 1, 0, 0, 0, 17.186674, 0.10923338, 0, 0.5117171)
@@ -99,3 +100,4 @@ script = ExtResource("8_gee14")
 interval = 0.2
 
 [connection signal="event_chosen" from="event" to="." method="_on_event_event_chosen"]
+[connection signal="go_back" from="event" to="." method="_on_event_go_back"]

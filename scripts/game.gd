@@ -16,6 +16,7 @@ enum LocationEvents {
 	DWARVES,
 	WELL,
 	GOOSE,
+	RED,
 	COUNT
 }
 
@@ -48,6 +49,12 @@ enum Followups {
 	SW_SLAP,
 	SLEEP_KISS,
 	SLEEP_SLAP,
+	GRANDMA_SUCCESS,
+	GRANDMA_CLUB,
+	GRANDMA_HUNTER,
+	RED_AGAIN,
+	RED_LEAVE,
+	RED_ABOUT,
 	COUNT
 }
 
@@ -61,6 +68,8 @@ enum FlagIndices {
 	MET_RED,
 	FOUND_SW,
 	FOUND_SLEEP,
+	DEFEATED_WOLF,
+	FOUND_WOODSMAN,
 	COUNT
 }
 

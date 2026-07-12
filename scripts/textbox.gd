@@ -94,7 +94,11 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_RED:
 					pass # end dialogue
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
-					Globals.give_item(Main.ItemIndices.HAS_SEAL_EWALD)
+					if Globals.get_flag(Main.FlagIndices.DEFEATED_WOLF):
+						Globals.give_item(Main.ItemIndices.HAS_SEAL_EWALD)
+					else:
+						## todo die
+						pass
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SW_SLAP:
 					Globals.next_event = Main.Followups.SW_KISS
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SW_KISS:
@@ -103,6 +107,18 @@ func _on_option_1_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.SLEEP_KISS
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.SLEEP_KISS:
 					Globals.next_event = Main.Followups.SLEEP_SLAP
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_CLUB:
+					Globals.next_event = Main.Followups.GRANDMA_SUCCESS
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_HUNTER:
+					Globals.next_event = Main.Followups.GRANDMA_SUCCESS
+				Main.LocationEvents.RED:
+					Globals.next_event = Main.Followups.RED_ABOUT
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_ABOUT:
+					Globals.next_event = Main.Followups.RED_AGAIN
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_AGAIN:
+					Globals.next_event = Main.Followups.RED_ABOUT
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_LEAVE:
+					Globals.give_item(Main.ItemIndices.HAS_GHOST)
 			event_chosen.emit()
 
 
@@ -130,6 +146,12 @@ func _on_option_2_gui_input(event: InputEvent) -> void:
 					Globals.next_event = Main.Followups.GRANDMA_AGAIN
 				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_RED:
 					Globals.next_event = Main.Followups.GRANDMA_AGAIN
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
+					Globals.next_event = Main.Followups.GRANDMA_CLUB
+				Main.LocationEvents.RED:
+					Globals.next_event = Main.Followups.RED_LEAVE
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_AGAIN:
+					Globals.next_event = Main.Followups.RED_LEAVE
 			event_chosen.emit()
 
 
@@ -145,6 +167,8 @@ func _on_option_3_gui_input(event: InputEvent) -> void:
 					Globals.set_flag(Main.FlagIndices.FROG_GOOSE)
 				Main.LocationEvents.GRANDMA or Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_AGAIN:
 					Globals.next_event = Main.Followups.GHOST_EXITS_BOTTLE
+				Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
+					Globals.next_event = Main.Followups.GRANDMA_HUNTER
 			event_chosen.emit()
 
 
@@ -244,6 +268,16 @@ Investigating the hand, you find a whole sleeping woman in the greenery, a woman
 			$"option 1".text = "Ask about her"
 			$"option 1".visible = true
 			valid[0] = true
+		Main.LocationEvents.RED:
+			$textbox.text = "'Eeeey... maaaan...'
+The Girl in the red hood looks at you, eyes easily as red as her clothing. In her hand she holds a flask, emitting fine white vapor.
+'Whazzup...?'"
+			$"option 1".text = "About you"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Leave"
+			$"option 2".visible = true
+			valid[1] = true
 		Main.LocationEvents.COUNT: # should not be called
 			print_debug("Location count or figure none was called. This should probably not happen")
 			return
@@ -379,14 +413,35 @@ The Ghost is looking down on you, with hatred burning in his eyes.
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_WINE:
 			$textbox.text = "You pull out the bottle of wine and Grandmas eyes go bright.
 'Ah, my sweet child, she always remembers me. Grandma loves a little glass of wine from time to time. Go ahead, open it up'.
-You squeeze the Cork, twist the bottle, and pour a bit of the red liquid in Grandmas glass. She takes a sip and smiles.
+You squeeze the Cork, twist the bottle, and pour a bit of the red liquid in Grandmas glass. She takes a sip and smiles."
 
-'Oh, thank you dear, that was wonderful' Grandma smiles, and your heart gets warm. She is so sweet.
+			if Globals.get_flag(Main.FlagIndices.DEFEATED_WOLF):
+				$textbox.text += "\n\n'Oh, thank you dear, that was wonderful' Grandma smiles, and your heart gets warm. She is so sweet.
 'Here, my dear, take this. Take this'
 She hands you, you almost can't believe it, the Seal of Gervinus!"
-			$"option 1".text = "You got another seal!"
-			$"option 1".visible = true
-			valid[0] = true
+				$"option 1".text = "You got another seal!"
+				$"option 1".visible = true
+				valid[0] = true
+			else:
+				$textbox.text += "Suddenly, again, glass explodes, this time the window. The Big Bad Wolf jumps into grandmas living room and knocks her over, she goes down with a small scream. 
+The Wolf towers over both of you, drivel runs from his jaws. You have to be nuts to fight him."
+				$"option 1".text = "Fight!"
+				$"option 1".visible = true
+				valid[0] = true
+				if Globals.get_item(Main.ItemIndices.HAS_CLUB):
+					$"option 2".text = "Use the club"
+					$"option 2".visible = true
+					valid[1] = true
+				else:
+					$"option 2".text = "???"
+					$"option 2".visible = true
+				if Globals.get_flag(Main.FlagIndices.FOUND_WOODSMAN):
+					$"option 3".text = "Call for help"
+					$"option 3".visible = true
+					valid[2] = true
+				else:
+					$"option 3".text = "???"
+					$"option 3".visible = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GHOST_DEATH:
 			$textbox.text = "You state your prefered way to die. You thought about it a lot, and now is the time.
 The Ghost nods, and you die. But as pleasantly as you could wish for."
@@ -452,6 +507,48 @@ The Ghost nods, and you die. But as pleasantly as you could wish for."
 			$"option 2".text = "Leave"
 			$"option 2".visible = true
 			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_SUCCESS:
+			$textbox.text = "'Oh, thank you dear, that was wonderful' Grandma smiles, and your heart gets warm. She is so sweet.
+'Here, my dear, take this. Take this'
+She hands you, you almost can't believe it, the Seal of Gervinus!"
+			$"option 1".text = "You got another seal!"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_CLUB:
+			$textbox.text = "Club jumps out of his sack and throuws himself onto the wolf. The wolf realizes too late what is about to happen, a gets a bad hit on the nose. He tries to bite into the club, but club whirls around him and deals severe punches.
+Under the relentless pressure of wooden brutality, the wolf runs away."
+			$"option 1".text = "You help Grandma get up"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.GRANDMA_HUNTER:
+			$textbox.text = "Your cry for help, not very good for your dignity, even though it surprises everyone here, echoes a bit through the room, then dies down. The wolf seems surprised for a second, but then draws closer.
+Suddenly! The second window of the living room explodes, and the wolfs natural enemy, the woodsman, jumps in. He screams and swings his axe, knocks over some of grandmas beloved souveniers. The wolf cringes back, snaps at the woodsman, then jumps out of the broken window, the woodsman behind him. They both vanish in the darkness."
+			$"option 1".text = "You help Grandma get up"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_AGAIN:
+			$textbox.text = "'Eeeey... maaaan...'
+The Girl in the red hood looks at you, eyes easily as red as her clothing. In her hand she holds a flask, emitting fine white vapor.
+'Whazzup...?'"
+			$"option 1".text = "About you"
+			$"option 1".visible = true
+			valid[0] = true
+			$"option 2".text = "Leave"
+			$"option 2".visible = true
+			valid[1] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_LEAVE:
+			$textbox.text = "Suddely alive, she grabs your shulder.
+'Ey, ma... ma man... can you do something for me...?'
+As you don't seem to say no, she hands you a bottle. You have to grab it quckly, because her fingers open a good cubit in front of your hand.
+'Can... can you bring this to my granny? Shees... She's lonely, I think, can you give it to her'"
+			$"option 1".text = "You take the bottle"
+			$"option 1".visible = true
+			valid[0] = true
+		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.RED_ABOUT:
+			$textbox.text = "'Heheeee... huh? What about me?', she asks, her eyes drifting between you and the sky. 'Im Red Riding Hood, man. I mean... Whaaaaaaat?'"
+			$"option 1".text = "You don't think she has a very good grasp on the situation."
+			$"option 1".visible = true
+			valid[0] = true
 		Main.LocationEvents.COUNT + Main.FigureEvents.COUNT + Main.Followups.COUNT:
 			print_debug("Followups count was called. This should definitely not happen")
 	

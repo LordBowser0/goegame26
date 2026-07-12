@@ -41,7 +41,7 @@ shadow_enabled = true
 [node name="prince" parent="." unique_id=1488649311 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.757825, 0, 1.6048632)
 event = 7
-neighbors = [NodePath("../dwarf"), NodePath("../sleepingbeauty"), null]
+neighbors = [NodePath("../dwarf"), NodePath("../sleepingbeauty"), NodePath("../board_position3")]
 
 [node name="tavern" parent="." unique_id=1347024676 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 0.9999682, 0.007976853, 0, -0.007976853, 0.9999682, 5, 0, 3)
@@ -116,6 +116,7 @@ neighbors = [NodePath("../winecellar"), NodePath("../start_pos"), NodePath("../g
 [node name="sleepingbeauty" parent="." unique_id=1784865822 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.128526, 0, -2.829527)
 event = 4
+neighbors = [NodePath("../prince"), NodePath("../board_position4")]
 
 [node name="winecellar" parent="." unique_id=1602429978 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0462751, 1.9073486e-06, -9.549433)
@@ -133,9 +134,18 @@ neighbors = [NodePath("../start_pos"), NodePath("../snowwhite"), NodePath("../ta
 
 [node name="board_position" parent="." unique_id=1433374070 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.37305, 0, -8.5438795)
+neighbors = [NodePath("../board_position3"), NodePath("../board_position4")]
 
 [node name="board_position2" parent="." unique_id=442827638 instance=ExtResource("2_yqjtg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9289174, 0, 0.50739)
+
+[node name="board_position3" parent="." unique_id=848404298 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.858253, 0, 0.33177614)
+neighbors = [NodePath("../prince"), NodePath("../board_position")]
+
+[node name="board_position4" parent="." unique_id=1996518886 instance=ExtResource("2_yqjtg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7135754, 0, -8.039319)
+neighbors = [NodePath("."), NodePath("../sleepingbeauty")]
 
 [connection signal="event_chosen" from="event" to="." method="_on_event_event_chosen"]
 [connection signal="go_back" from="event" to="." method="_on_event_go_back"]
